@@ -1,50 +1,46 @@
-'use client'
-import React, { useState } from "react";
-import Card from "../components/Card";
-import professionalsData from "../../data/professionalsData"
+import FooterSection from '@/components/sections/FooterSection';
+import HeaderSection from '@/components/sections/HeaderSection';
+import TherapistCard from '@/components/TherapistCard'; // Renamed for clarity
+import profileData from '../../data/professionalsData';
 
-
-export default function LandingPage() {
-  const [selectedCategory, setSelectedCategory] = useState("therapists");
-
-  const categories = Object.keys(professionalsData);
-
+export default function Home() {
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="bg-white shadow p-4">
-        <div className="max-w-6xl mx-auto flex justify-between items-center">
-          <h1 className="text-xl font-bold text-gray-800">Better Together</h1>
-          <nav>
-            <button className="px-4 py-2 bg-blue-600 text-white rounded">Sign Up</button>
-          </nav>
-        </div>
-      </header>
+    <>
+      <div>
+        {/* Header Section */}
+        <HeaderSection />
 
-      {/* Category Selector */}
-      <section className="p-6">
-        <h2 className="text-2xl font-semibold text-center mb-4">Choose a Category</h2>
-        <div className="flex justify-center space-x-4">
-          {categories.map((category) => (
-            <button
-              key={category}
-              onClick={() => setSelectedCategory(category)}
-              className={`px-4 py-2 border rounded ${
-                selectedCategory === category ? "bg-blue-600 text-white" : "bg-white text-gray-800"
-              }`}
-            >
-              {category.charAt(0).toUpperCase() + category.slice(1)}
-            </button>
-          ))}
-        </div>
-      </section>
+        {/* Main Content */}
+        <div className="px-4 py-6 max-w-4xl mx-auto">
+          <h1 className="text-md md:text-3xl font-bold text-gray-800 mb-4 text-center">
+            Book Your Therapy Session Using Better Together
+          </h1>
+          <h2 className="text-sm md:text-xl  text-gray-600 text-center mb-8">
+            Looking for therapists who get you? Book a therapist today, verified by Better Together.
+          </h2>
 
-      {/* Professionals List */}
-      <section className="max-w-4xl mx-auto p-4">
-        {professionalsData[selectedCategory].map((professional) => (
-          <Card key={professional.id} professional={professional} />
-        ))}
-      </section>
-    </div>
+          {/* Therapist Cards in a Single Column */}
+          <div className="flex flex-col gap-6">
+            {profileData.map((profile) => (
+              <TherapistCard
+                key={profile.id}
+                name={profile.name}
+                verified={profile.verified}
+                experience={profile.experience}
+                languages={profile.languages}
+                description={profile.description}
+                timing={profile.timing}
+                individualPrice={profile.individualPrice}
+                couplesPrice={profile.couplesPrice}
+                profileImage={profile.profileImage}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* Footer Section */}
+        <FooterSection />
+      </div>
+    </>
   );
 }

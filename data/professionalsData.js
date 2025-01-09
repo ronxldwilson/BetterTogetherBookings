@@ -1,66 +1,43 @@
-const professionalsData = {
-  therapists: [
-    {
-      id:1,
-      name: 'Ms Sam well',
-      title: 'Counselling Psychologist',
-      experience: 2,
-      languages: ['English', 'Malayalam'],
-      description:
-        'Therapy with me focuses on helping people grow, heal, and build resilience in a supportive, nonjudgmental space.',
-      individualPrice: 1500,
-      couplePrice: 2000,
-      availableTime: 'Mon, Jan 6, 03:00 pm IST',
-      badges: ['Top-Rated', '149 happy client sessions'],
-      verified: true,
-      image: 'profile.png' // Place the image in the public folder
-    },{
-      id:1,
-      name: 'Ms Sam well',
-      title: 'Counselling Psychologist',
-      experience: 2,
-      languages: ['English', 'Malayalam'],
-      description:
-        'Therapy with me focuses on helping people grow, heal, and build resilience in a supportive, nonjudgmental space.',
-      individualPrice: 1500,
-      couplePrice: 2000,
-      availableTime: 'Mon, Jan 6, 03:00 pm IST',
-      badges: ['Top-Rated', '149 happy client sessions'],
-      verified: true,
-      image: 'profile.png' // Place the image in the public folder
-    }
-  ],
-  fitnessCoaches: [
-    {
-      id:1,
-      name: 'Mr Sam well',
-      title: 'Counselling Psychologist',
-      experience: 2,
-      languages: ['English', 'Malayalam'],
-      description:
-        'Therapy with me focuses on helping people grow, heal, and build resilience in a supportive, nonjudgmental space.',
-      individualPrice: 1500,
-      couplePrice: 2000,
-      availableTime: 'Mon, Jan 6, 03:00 pm IST',
-      badges: ['Top-Rated', '149 happy client sessions'],
-      verified: true,
-      image: 'profile.png' // Place the image in the public folder
-    },{
-      id:1,
-      name: 'Ms Sam well',
-      title: 'Counselling Psychologist',
-      experience: 2,
-      languages: ['English', 'Malayalam'],
-      description:
-        'Therapy with me focuses on helping people grow, heal, and build resilience in a supportive, nonjudgmental space.',
-      individualPrice: 1500,
-      couplePrice: 2000,
-      availableTime: 'Mon, Jan 6, 03:00 pm IST',
-      badges: ['Top-Rated', '149 happy client sessions'],
-      verified: true,
-      image: 'profile.png'
-    }
-  ]
-}
+const profileData = [
+  {
+    id: 1,
+    name: 'Issac Paul',
+    verified: true,
+    experience: 'Therapist · 5+ Years of Experience',
+    languages: 'Fluent in English and Malayalam',
+    description:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis n',
+    timing: 'Fri 10:00 PM - 11:00 PM',
+    individualPrice: 1000,
+    couplesPrice: 2000,
+    profileImage: '/images/therapist/Issac.jpg'
+  },
+  {
+    id: 1,
+    name: 'Issac Paul',
+    verified: true,
+    experience: 'Therapist · 5+ Years of Experience',
+    languages: 'Fluent in English and Malayalam',
+    description:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis n',
+    timing: 'Fri 10:00 PM - 11:00 PM',
+    individualPrice: 1000,
+    couplesPrice: 2000,
+    profileImage: '/images/therapist/Issac.jpg'
+  },
+  {
+  id: 2,
+    name: 'Issac Paul',
+    verified: true,
+    experience: 'Therapist · 5+ Years of Experience',
+    languages: 'Fluent in English and Malayalam',
+    description:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis n',
+    timing: 'Fri 10:00 PM - 11:00 PM',
+    individualPrice: 1000,
+    couplesPrice: 2000,
+    profileImage: '/images/therapist/Issac.jpg'
+  },
+]
 
-export default professionalsData
+export default profileData
