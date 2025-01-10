@@ -24,6 +24,7 @@ export default function Home() {
             {profileData.map((profile) => (
               <TherapistCard
                 key={profile.id}
+                slug={profile.slug}
                 name={profile.name}
                 verified={profile.verified}
                 experience={profile.experience}

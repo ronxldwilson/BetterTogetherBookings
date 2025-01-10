@@ -1,6 +1,10 @@
+"use client"; // Marks this as a Client Component
+
 import React from "react";
+import { useRouter } from "next/navigation";
 
 const TherapistCard = ({
+  slug,
   name,
   verified,
   experience,
@@ -11,6 +15,13 @@ const TherapistCard = ({
   couplesPrice,
   profileImage,
 }) => {
+  const router = useRouter();
+
+  const handleBooking = () => {
+    // Navigate to the dynamic route
+    router.push(`/bookings/${slug}`);
+  };
+
   return (
     <div className="bg-white rounded-lg shadow-md p-6 flex flex-col md:flex-row items-center md:items-start max-w-2xl mx-auto space-y-4 md:space-y-0 md:space-x-6">
       {/* Profile Picture */}
@@ -43,7 +54,10 @@ const TherapistCard = ({
 
       {/* Button Section */}
       <div className="flex flex-col items-center md:items-end">
-        <button className="bg-red-600 text-white hover:bg-red-700 px-4 py-2 rounded-lg text-sm mb-2">
+        <button
+          onClick={handleBooking}
+          className="bg-red-600 text-white hover:bg-red-700 px-4 py-2 rounded-lg text-sm mb-2"
+        >
           Book Session
         </button>
         <p className="text-xs text-gray-500 text-center md:text-right">
