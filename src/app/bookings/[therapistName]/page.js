@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import HeaderSection from '@/components/sections/HeaderSection'
+import FooterSection from '@/components/sections/FooterSection'
 import professionals from './../../../../data/professionalsData'
 
 const TherapistBooking = ({ params }) => {
@@ -135,6 +136,7 @@ const TherapistBooking = ({ params }) => {
           </form>
         </div>
       </div>
+      <FooterSection/>
     </>
   )
 }

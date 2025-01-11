@@ -28,7 +28,7 @@ const profileData = [
     profileImage: '/images/therapist/Issac.jpg'
   },
   {
-  id: 3,
+    id: 3,
     name: 'Issac Paul',
     slug: 'issac-paul',
     verified: true,
@@ -40,7 +40,7 @@ const profileData = [
     individualPrice: 1000,
     couplesPrice: 2000,
     profileImage: '/images/therapist/Issac.jpg'
-  },
+  }
 ]
 
 export default profileData
