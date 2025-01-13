@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import HeaderSection from '@/components/sections/HeaderSection'
 import FooterSection from '@/components/sections/FooterSection'
+import Calendar from '@/components/Calendar'
 import professionals from './../../../../data/professionalsData'
 
 const TherapistBooking = ({ params }) => {
@@ -73,7 +74,7 @@ const TherapistBooking = ({ params }) => {
         </div>
 
         {/* Right Section: Booking Form */}
-        <div className='lg:w-1/3 bg-gray-100 p-6 rounded-lg shadow-md'>
+        <div className='lg:w-3/5 bg-gray-100 p-6 rounded-lg shadow-md'>
           <h2 className='text-xl font-semibold mb-4'>Book Your Session</h2>
           <form className='space-y-4'>
             <div>
@@ -107,11 +108,7 @@ const TherapistBooking = ({ params }) => {
               <label htmlFor='dateTime' className='block text-sm font-medium'>
                 Date & Time
               </label>
-              <input
-                type='datetime-local'
-                id='dateTime'
-                className='w-full border-gray-300 rounded-lg p-2'
-              />
+              <Calendar/>
             </div>
             <div>
               <label
@@ -136,7 +133,7 @@ const TherapistBooking = ({ params }) => {
           </form>
         </div>
       </div>
-      <FooterSection/>
+      <FooterSection />
     </>
   )
 }
