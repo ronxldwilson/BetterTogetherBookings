@@ -108,7 +108,7 @@ const TherapistBooking = ({ params }) => {
               <label htmlFor='dateTime' className='block text-sm font-medium'>
                 Date & Time
               </label>
-              <Calendar/>
+              <Calendar id={professionals.id} name={professionals.name} />
             </div>
             <div>
               <label

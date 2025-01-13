@@ -8,6 +8,7 @@ const Calendar = () => {
             date.setDate(startDate.getDate() + i);
             days.push(date);
         }
+        console.log(days)
         return days;
     };
 
@@ -44,7 +45,7 @@ const Calendar = () => {
                 {currentStartDate.toDateString() === today.toDateString() ? (
                     <button
                         type="button"
-                        disabled // Make it non-clickable
+                        disabled
                         className="text-gray-400 px-4 py-2 rounded-md bg-gray-200 cursor-not-allowed"
                     >
                         &larr; Back
@@ -63,7 +64,7 @@ const Calendar = () => {
                     </button>
                 )}
 
-                <div className="flex space-x-8">
+                <div className="flex space-x-4 md:space-x-8 overflow-x-auto">
                     {dates.map((date) => (
                         <div
                             key={date.toDateString()}
@@ -73,11 +74,11 @@ const Calendar = () => {
                                 : "text-gray-700"
                                 }`}
                         >
-                            <div className="text-lg">
+                            <div className="text-sm md:text-lg">
                                 {date.toLocaleString("en-US", { weekday: "short" })}
                             </div>
-                            <div className="text-xl">{date.getDate()}</div>
-                            <div className="text-sm">
+                            <div className="text-xl md:text-2xl">{date.getDate()}</div>
+                            <div className="text-xs md:text-sm">
                                 {date.toLocaleString("en-US", { month: "short" })}
                             </div>
                         </div>
@@ -93,7 +94,7 @@ const Calendar = () => {
             </div>
 
             {/* Display time slots neatly for each date */}
-            <div className="grid grid-cols-4 gap-6">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 md:gap-6">
                 {dates.map((date) => (
                     <div key={date.toDateString()} className="text-center">
                         <div className="font-bold text-lg text-gray-700 mb-4">
@@ -108,7 +109,7 @@ const Calendar = () => {
                                         setSelectedDate(date.toDateString());
                                         setSelectedSlot(slot);
                                     }}
-                                    className={`w-full py-2 px-4 rounded-lg text-sm ${selectedDate === date.toDateString() && selectedSlot === slot
+                                    className={`w-full py-2 px-4 rounded-lg text-sm md:text-base ${selectedDate === date.toDateString() && selectedSlot === slot
                                         ? "bg-blue-500 text-white"
                                         : "bg-blue-100 hover:bg-blue-200 text-blue-700"
                                         }`}
@@ -120,7 +121,7 @@ const Calendar = () => {
                     </div>
                 ))}
             </div>
-            <div className="mt-6 text-gray-600 text-center">
+            <div className="mt-6 text-gray-600 text-center text-xs md:text-sm">
                 All times are in Indian Standard Time (IST)
             </div>
         </div>
