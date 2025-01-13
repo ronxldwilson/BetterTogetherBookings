@@ -102,6 +102,7 @@ const Calendar = () => {
                         <div className="space-y-2">
                             {timeSlots.map((slot) => (
                                 <button
+                                    type="button"
                                     key={slot}
                                     onClick={() => {
                                         setSelectedDate(date.toDateString());

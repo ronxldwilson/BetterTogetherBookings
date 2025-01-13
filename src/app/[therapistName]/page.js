@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import HeaderSection from '@/components/sections/HeaderSection'
 import FooterSection from '@/components/sections/FooterSection'
 import Calendar from '@/components/Calendar'
-import professionals from './../../../../data/professionalsData'
+import professionals from './../../../data/professionalsData'
 
 const TherapistBooking = ({ params }) => {
   const [therapist, setTherapist] = useState(null)

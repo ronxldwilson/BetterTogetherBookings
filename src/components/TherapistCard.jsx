@@ -19,7 +19,7 @@ const TherapistCard = ({
 
   const handleBooking = () => {
     // Navigate to the dynamic route
-    router.push(`/bookings/${slug}`);
+    router.push(`/${slug}`);
   };
 
   return (
