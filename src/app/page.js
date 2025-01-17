@@ -16,7 +16,7 @@ export default function Home() {
             Book Your Therapy Session Using Better Together
           </h1>
           <h2 className="text-sm md:text-xl  text-gray-600 text-center mb-8">
-            Looking for therapists who get you? Book a therapist today, verified by Better Together.
+            Looking for therapists who get you? Book a therapy session today using better together.
           </h2>
 
           {/* Therapist Cards in a Single Column */}

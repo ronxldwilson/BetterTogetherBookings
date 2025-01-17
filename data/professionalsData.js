@@ -15,8 +15,8 @@ const profileData = [
   },
   {
     id: 2,
-    slug: 'issac-paul',
-    name: 'Issac Paul',
+    slug: 'therapist-2',
+    name: 'Therapist 2',
     verified: true,
     experience: 'Therapist · 5+ Years of Experience',
     languages: 'Fluent in English and Malayalam',
@@ -29,8 +29,8 @@ const profileData = [
   },
   {
     id: 3,
-    name: 'Issac Paul',
-    slug: 'issac-paul',
+    name: 'therapist-3',
+    slug: 'Therapist 3',
     verified: true,
     experience: 'Therapist · 5+ Years of Experience',
     languages: 'Fluent in English and Malayalam',
