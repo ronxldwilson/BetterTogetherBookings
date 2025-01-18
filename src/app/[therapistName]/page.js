@@ -8,42 +8,44 @@ import Calendar from '@/components/Calendar'
 import professionals from './../../../data/professionalsData'
 import Prices from '@/components/Prices'
 
+// Main TherapistBooking component
 const TherapistBooking = ({ params }) => {
-  const [therapist, setTherapist] = useState(null)
-  const router = useRouter()
+  const [therapist, setTherapist] = useState(null) // Therapist state to store selected therapist data
+  const router = useRouter() // Next.js router for navigation
 
   useEffect(() => {
     const fetchData = async () => {
-      const { therapistName } = await params // Unwrap the promise from params
-      const foundTherapist = professionals.find(t => t.slug === therapistName)
+      const { therapistName } = await params // Destructure therapist name from params
+      const foundTherapist = professionals.find(t => t.slug === therapistName) // Find therapist by slug
 
       if (!foundTherapist) {
-        router.push('/404') // Redirect to 404 if not found
+        router.push('/404') // Redirect to 404 page if therapist not found
       } else {
-        setTherapist(foundTherapist)
+        setTherapist(foundTherapist) // Set the therapist state if found
       }
     }
 
     fetchData()
   }, [params, router])
 
+  // Show a loading state until the therapist data is available
   if (!therapist) {
-    return <div>Loading...</div> // Show a loading state
+    return <div>Loading...</div>
   }
 
   return (
     <>
       <HeaderSection />
       <div className='flex flex-col lg:flex-row p-6 lg:space-x-8 max-w-7xl mx-auto'>
-        {leftSection(therapist)}
-        {/* {rightSection(therapist)} */}
-        <RightSection therapist={therapist} />
+        {leftSection(therapist)} {/* Left section with therapist details */}
+        <RightSection therapist={therapist} /> {/* Right section with booking form */}
       </div>
       <FooterSection />
     </>
   )
 }
 
+// RightSection component: Contains the booking form
 function RightSection ({ therapist }) {
   // Form values state
   const [sessionMode, setSessionMode] = useState('')
@@ -53,8 +55,17 @@ function RightSection ({ therapist }) {
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
 
+  // Form submission handler
   const handleSubmission = e => {
     e.preventDefault() // Prevent default form submission behavior
+
+    // Check if all required fields are filled
+    if (!sessionMode || !typeOfSession || !selectedSlot || !name || !email || !phone) {
+      alert('Please fill in all fields before submitting the form.') // Alert user if any field is empty
+      return
+    }
+
+    // Create formData object with all form values
     const formData = {
       sessionMode,
       typeOfSession,
@@ -63,9 +74,8 @@ function RightSection ({ therapist }) {
       email,
       phone
     }
-    console.log('Form Data:', formData)
-    console.log('Form Data:', formData)
-    // You can send `formData` to a server or perform other actions
+
+    console.log('Form Data:', formData) // Log form data (can be sent to server)
   }
 
   return (
@@ -115,9 +125,7 @@ function RightSection ({ therapist }) {
 
         {/* Type of Session */}
         <div>
-          <label className='block text-sm font-bold mb-2'>
-            Type of Session
-          </label>
+          <label className='block text-sm font-bold mb-2'>Type of Session</label>
           <div className='space-y-2'>
             <div className='flex items-center'>
               <input
@@ -214,6 +222,7 @@ function RightSection ({ therapist }) {
   )
 }
 
+// Left section component: Displays therapist details
 function leftSection (therapist) {
   return (
     <>
@@ -252,4 +261,5 @@ function leftSection (therapist) {
     </>
   )
 }
+
 export default TherapistBooking
