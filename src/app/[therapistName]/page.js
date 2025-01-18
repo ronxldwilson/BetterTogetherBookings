@@ -64,6 +64,7 @@ function RightSection ({ therapist }) {
       phone
     }
     console.log('Form Data:', formData)
+    console.log('Form Data:', formData)
     // You can send `formData` to a server or perform other actions
   }
 
