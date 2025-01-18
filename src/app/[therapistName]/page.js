@@ -44,6 +44,11 @@ const TherapistBooking = ({ params }) => {
 }
 
 function rightSection (therapist) {
+  
+  const handleSubmission = () => {
+    console.log("Hello")
+  }
+
   return (
     <>
       <div className='lg:w-3/5 bg-gray-100 p-6 rounded-lg shadow-md'>
@@ -159,8 +164,9 @@ function rightSection (therapist) {
             </div>
           </div>
           <button
-            type='submit'
+            type=''
             className='w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700'
+            onClick={handleSubmission}
           >
             Confirm Booking
           </button>

@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { supabase } from "../lib/supabase"; // Import the Supabase client
+import { supabase } from "../lib/supabase";
 
 const Calendar = ({ id, name }) => {
-  const [therapist, setTherapist] = useState([]); // Holds the fetched schedule data
-  const [loading, setLoading] = useState(true); // Loading state
-  const [error, setError] = useState(null); // Error state
-  const [currentPage, setCurrentPage] = useState(0); // Current page for pagination
-  const [selectedSlot, setSelectedSlot] = useState(null); // Tracks the single selected slot
+  const [therapist, setTherapist] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [selectedSlot, setSelectedSlot] = useState(null);
 
   const allSlots = [
     "09:00 AM",
@@ -18,13 +18,13 @@ const Calendar = ({ id, name }) => {
     "03:00 PM",
     "04:00 PM",
     "05:00 PM",
+    "06:00 PM",
   ];
 
-  const slotsPerPage = 4; // Number of dates to display per page
+  const slotsPerPage = 4;
 
-  // Fetch schedule data
   useEffect(() => {
-    const scheduleData = async () => {
+    const fetchSchedule = async () => {
       try {
         const { data, error } = await supabase
           .from("professional_schedule")
@@ -42,32 +42,46 @@ const Calendar = ({ id, name }) => {
       }
     };
 
-    scheduleData();
+    fetchSchedule();
   }, [id]);
 
   if (loading) {
-    return <div>Loading schedule...</div>;
+    return <div className="text-center py-6">Loading schedule...</div>;
   }
 
   if (error) {
-    return <div>{error}</div>;
+    return <div className="text-red-500 text-center py-6">{error}</div>;
   }
 
-  // Group booked slots by date
-  const groupedSlots = therapist.reduce((acc, { date, slot }) => {
-    if (!acc[date]) {
-      acc[date] = new Set(allSlots); // Initialize with all slots
+  const getNextNDates = (n) => {
+    const today = new Date();
+    const dates = [];
+    for (let i = 0; i < n; i++) {
+      const nextDate = new Date(today);
+      nextDate.setDate(today.getDate() + i);
+      dates.push(nextDate.toISOString().split("T")[0]);
     }
-    acc[date].delete(slot); // Remove booked slot
+    return dates;
+  };
+
+  const upcomingDates = getNextNDates(30);
+
+  const groupedSlots = upcomingDates.reduce((acc, date) => {
+    acc[date] = new Set(allSlots);
     return acc;
   }, {});
+
+  therapist.forEach(({ date, slot }) => {
+    if (groupedSlots[date]) {
+      groupedSlots[date].delete(slot);
+    }
+  });
 
   const formattedSlots = Object.entries(groupedSlots).map(([date, slots]) => ({
     date,
     slots: Array.from(slots),
   }));
 
-  // Paginated data
   const paginatedSlots = formattedSlots.slice(
     currentPage * slotsPerPage,
     (currentPage + 1) * slotsPerPage
@@ -91,17 +105,18 @@ const Calendar = ({ id, name }) => {
   };
 
   return (
-    <div className="p-4">
-      <h2 className="text-lg font-bold mb-4">
-        Available Slots for {name || "Therapist"}:
+    <div className="p-6 max-w-4xl mx-auto bg-white rounded-lg shadow-md">
+      <h2 className="text-2xl font-bold text-center mb-6">
+        Available Slots for {name || "Therapist"}
       </h2>
 
-      {/* Navigation Buttons */}
-      <div className="flex justify-between mb-4">
+      <div className="flex justify-between items-center mb-6">
         <button
           type="button"
-          className={`bg-blue-500 text-white py-2 px-4 rounded-lg ${
-            currentPage === 0 ? "opacity-50 cursor-not-allowed" : ""
+          className={`py-2 px-6 font-semibold rounded-lg transition-all ${
+            currentPage === 0
+              ? "bg-gray-300 text-gray-600 cursor-not-allowed"
+              : "bg-blue-500 text-white hover:bg-blue-600"
           }`}
           onClick={handleBack}
           disabled={currentPage === 0}
@@ -110,10 +125,10 @@ const Calendar = ({ id, name }) => {
         </button>
         <button
           type="button"
-          className={`bg-blue-500 text-white py-2 px-4 rounded-lg ${
+          className={`py-2 px-6 font-semibold rounded-lg transition-all ${
             (currentPage + 1) * slotsPerPage >= formattedSlots.length
-              ? "opacity-50 cursor-not-allowed"
-              : ""
+              ? "bg-gray-300 text-gray-600 cursor-not-allowed"
+              : "bg-blue-500 text-white hover:bg-blue-600"
           }`}
           onClick={handleNext}
           disabled={(currentPage + 1) * slotsPerPage >= formattedSlots.length}
@@ -122,12 +137,18 @@ const Calendar = ({ id, name }) => {
         </button>
       </div>
 
-      {/* Calendar Slots */}
-      <div className="grid grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {paginatedSlots.map(({ date, slots }) => (
-          <div key={date} className="border rounded-lg p-2">
-            <h3 className="text-md font-semibold text-center mb-2">{date}</h3>
-            <div className="grid grid-cols-1 gap-2">
+          <div key={date} className="border rounded-lg p-4 bg-gray-50">
+            <h3 className="text-lg font-semibold text-center mb-4">
+              {new Date(date).toLocaleDateString("en-US", {
+                weekday: "long",
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })}
+            </h3>
+            <div className="grid grid-cols-2 gap-4">
               {slots.length > 0 ? (
                 slots.map((slot) => {
                   const slotKey = `${date}-${slot}`;
@@ -135,24 +156,35 @@ const Calendar = ({ id, name }) => {
                   return (
                     <button
                       key={slot}
-                      className={`py-2 px-4 rounded-lg text-sm font-medium ${
+                      className={`py-2 px-4 rounded-lg text-sm font-medium transition-all ${
                         isSelected
-                          ? "bg-green-500 text-white"
-                          : "bg-blue-100 text-blue-700"
+                          ? "bg-green-500 text-white hover:bg-green-600"
+                          : "bg-blue-100 text-blue-700 hover:bg-blue-200"
                       }`}
-                      onClick={() => toggleSlotSelection(date, slot)}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        toggleSlotSelection(date, slot);
+                      }}
                     >
                       {slot}
                     </button>
                   );
                 })
               ) : (
-                <p className="text-sm text-gray-500">No available slots.</p>
+                <p className="text-sm text-gray-500 text-center col-span-2">
+                  No available slots.
+                </p>
               )}
             </div>
           </div>
         ))}
       </div>
+
+      {selectedSlot && (
+        <div className="mt-6 p-4 bg-green-100 text-green-700 text-center rounded-lg">
+          Selected Slot: <strong>{selectedSlot}</strong>
+        </div>
+      )}
     </div>
   );
 };
