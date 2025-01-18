@@ -36,143 +36,180 @@ const TherapistBooking = ({ params }) => {
       <HeaderSection />
       <div className='flex flex-col lg:flex-row p-6 lg:space-x-8 max-w-7xl mx-auto'>
         {leftSection(therapist)}
-        {rightSection(therapist)}
+        {/* {rightSection(therapist)} */}
+        <RightSection therapist={therapist} />
       </div>
       <FooterSection />
     </>
   )
 }
 
-function rightSection (therapist) {
-  
-  const handleSubmission = () => {
-    console.log("Hello")
+function RightSection ({ therapist }) {
+  // Form values state
+  const [sessionMode, setSessionMode] = useState('')
+  const [typeOfSession, setTypeOfSession] = useState('')
+  const [selectedSlot, setSelectedSlot] = useState('')
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [phone, setPhone] = useState('')
+
+  const handleSubmission = e => {
+    e.preventDefault() // Prevent default form submission behavior
+    const formData = {
+      sessionMode,
+      typeOfSession,
+      selectedSlot,
+      name,
+      email,
+      phone
+    }
+    console.log('Form Data:', formData)
+    // You can send `formData` to a server or perform other actions
   }
 
   return (
-    <>
-      <div className='lg:w-3/5 bg-gray-100 p-6 rounded-lg shadow-md'>
-        <h2 className='text-xl font-semibold mb-4'>Book Your Session</h2>
-        <form className='space-y-4'>
-          <div>
-            <div>
-              <label className='block text-sm font-bold mb-2'>
-                Select Mode
+    <div className='lg:w-3/5 bg-gray-100 p-6 rounded-lg shadow-md'>
+      <h2 className='text-xl font-semibold mb-4'>Book Your Session</h2>
+      <form className='space-y-4' onSubmit={handleSubmission}>
+        {/* Session Mode */}
+        <div>
+          <label className='block text-sm font-bold mb-2'>Select Mode</label>
+          <div className='space-y-2'>
+            <div className='flex items-center'>
+              <input
+                type='radio'
+                id='mode-online'
+                name='mode'
+                value='online'
+                className='w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500'
+                checked={sessionMode === 'online'}
+                onChange={e => setSessionMode(e.target.value)}
+              />
+              <label
+                htmlFor='mode-online'
+                className='ml-2 text-sm font-medium text-gray-700'
+              >
+                Online
               </label>
-              <div className='space-y-2'>
-                <div className='flex items-center'>
-                  <input
-                    type='radio'
-                    id='mode-online'
-                    name='mode'
-                    value='online'
-                    className='w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500'
-                  />
-                  <label
-                    htmlFor='mode-online'
-                    className='ml-2 text-sm font-medium text-gray-700'
-                  >
-                    Online
-                  </label>
-                </div>
-                <div className='flex items-center'>
-                  <input
-                    type='radio'
-                    id='mode-offline'
-                    name='mode'
-                    value='offline'
-                    className='w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500'
-                  />
-                  <label
-                    htmlFor='mode-offline'
-                    className='ml-2 text-sm font-medium text-gray-700'
-                  >
-                    Offline
-                  </label>
-                </div>
-              </div>
             </div>
-          </div>
-          <div>
-            <div>
-              <label className='block text-sm font-bold mb-2'>
-                Type of Session
+            <div className='flex items-center'>
+              <input
+                type='radio'
+                id='mode-offline'
+                name='mode'
+                value='offline'
+                className='w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500'
+                checked={sessionMode === 'offline'}
+                onChange={e => setSessionMode(e.target.value)}
+              />
+              <label
+                htmlFor='mode-offline'
+                className='ml-2 text-sm font-medium text-gray-700'
+              >
+                Offline
               </label>
-              <div className='space-y-2'>
-                <div className='flex items-center'>
-                  <input
-                    type='radio'
-                    id='sessionType-individual'
-                    name='sessionType'
-                    value='individual'
-                    className='w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500'
-                  />
-                  <label
-                    htmlFor='sessionType-individual'
-                    className='ml-2 text-sm font-medium text-gray-700'
-                  >
-                    Individual
-                  </label>
-                </div>
-                <div className='flex items-center'>
-                  <input
-                    type='radio'
-                    id='sessionType-couples'
-                    name='sessionType'
-                    value='couples'
-                    className='w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500'
-                  />
-                  <label
-                    htmlFor='sessionType-couples'
-                    className='ml-2 text-sm font-medium text-gray-700'
-                  >
-                    Couples
-                  </label>
-                </div>
-              </div>
             </div>
           </div>
-          <div>
-            <label htmlFor='dateTime' className='block text-sm font-bold'>
-              Date & Time
-            </label>
-            <Calendar id={therapist.id} name={therapist.name} />
-          </div>
-          <div>
-            <label htmlFor='contactDetails' className='block text-sm font-bold'>
-              Contact Details
-            </label>
-            <div className='space-y-5'>
+        </div>
+
+        {/* Type of Session */}
+        <div>
+          <label className='block text-sm font-bold mb-2'>
+            Type of Session
+          </label>
+          <div className='space-y-2'>
+            <div className='flex items-center'>
               <input
-                type='text'
-                id='contactDetails'
-                className='w-full border-gray-300 rounded-lg p-2'
-                placeholder='Name'
+                type='radio'
+                id='sessionType-individual'
+                name='sessionType'
+                value='individual'
+                className='w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500'
+                checked={typeOfSession === 'individual'}
+                onChange={e => setTypeOfSession(e.target.value)}
               />
+              <label
+                htmlFor='sessionType-individual'
+                className='ml-2 text-sm font-medium text-gray-700'
+              >
+                Individual
+              </label>
+            </div>
+            <div className='flex items-center'>
               <input
-                type='text'
-                id='contactDetails'
-                className='w-full border-gray-300 rounded-lg p-2'
-                placeholder='Email'
+                type='radio'
+                id='sessionType-couples'
+                name='sessionType'
+                value='couples'
+                className='w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500'
+                checked={typeOfSession === 'couples'}
+                onChange={e => setTypeOfSession(e.target.value)}
               />
-              <input
-                type='text'
-                id='contactDetails'
-                className='w-full border-gray-300 rounded-lg p-2'
-                placeholder='Phone'
-              />
+              <label
+                htmlFor='sessionType-couples'
+                className='ml-2 text-sm font-medium text-gray-700'
+              >
+                Couples
+              </label>
             </div>
           </div>
-          <button
-            type=''
-            className='w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700'
-            onClick={handleSubmission}
-          >
-            Confirm Booking
-          </button>
-        </form>
-      </div>
-    </>
+        </div>
+
+        {/* Date & Time */}
+        <div>
+          <label htmlFor='dateTime' className='block text-sm font-bold'>
+            Date & Time
+          </label>
+          <Calendar
+            id={therapist.id}
+            name={therapist.name}
+            selectedSlot={selectedSlot}
+            onChange={setSelectedSlot}
+          />
+        </div>
+
+        {/* Contact Details */}
+        <div>
+          <label htmlFor='contactDetails' className='block text-sm font-bold'>
+            Contact Details
+          </label>
+          <div className='space-y-5'>
+            <input
+              type='text'
+              id='name'
+              className='w-full border-gray-300 rounded-lg p-2'
+              placeholder='Name'
+              value={name}
+              onChange={e => setName(e.target.value)}
+            />
+            <input
+              type='email'
+              id='email'
+              className='w-full border-gray-300 rounded-lg p-2'
+              placeholder='Email'
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+            />
+            <input
+              type='text'
+              id='phone'
+              className='w-full border-gray-300 rounded-lg p-2'
+              placeholder='Phone'
+              value={phone}
+              onChange={e => setPhone(e.target.value)}
+            />
+          </div>
+        </div>
+
+        {/* Submit Button */}
+        <button
+          type='submit'
+          className='w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700'
+        >
+          Confirm Booking
+        </button>
+      </form>
+    </div>
   )
 }
 

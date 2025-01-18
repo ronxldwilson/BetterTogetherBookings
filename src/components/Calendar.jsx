@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useState,useEffect } from 'react';
 import { supabase } from "../lib/supabase";
 
-const Calendar = ({ id, name }) => {
+const Calendar = ({ id, name, selectedSlot, onChange }) => {
   const [therapist, setTherapist] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(0);
-  const [selectedSlot, setSelectedSlot] = useState(null);
 
   const allSlots = [
     "09:00 AM",
@@ -20,7 +19,6 @@ const Calendar = ({ id, name }) => {
     "05:00 PM",
     "06:00 PM",
   ];
-
   const slotsPerPage = 4;
 
   useEffect(() => {
@@ -99,9 +97,11 @@ const Calendar = ({ id, name }) => {
     }
   };
 
-  const toggleSlotSelection = (date, slot) => {
+  const handleSlotClick = (date, slot) => {
     const slotKey = `${date}-${slot}`;
-    setSelectedSlot((prev) => (prev === slotKey ? null : slotKey));
+    if (onChange) {
+      onChange(selectedSlot === slotKey ? null : slotKey);
+    }
   };
 
   return (
@@ -163,7 +163,7 @@ const Calendar = ({ id, name }) => {
                       }`}
                       onClick={(e) => {
                         e.preventDefault();
-                        toggleSlotSelection(date, slot);
+                        handleSlotClick(date, slot);
                       }}
                     >
                       {slot}
