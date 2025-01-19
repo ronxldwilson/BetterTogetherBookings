@@ -6,7 +6,6 @@ import HeaderSection from '@/components/sections/HeaderSection'
 import FooterSection from '@/components/sections/FooterSection'
 import Calendar from '@/components/Calendar'
 import professionals from './../../../data/professionalsData'
-import Prices from '@/components/Prices'
 
 // Main TherapistBooking component
 const TherapistBooking = ({ params }) => {
@@ -54,9 +53,16 @@ function RightSection ({ therapist }) {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
+  const [therapistID, setTherapistID] = useState('')
+  const [message,setMessage] = useState('')
 
+  useEffect(() => {
+    if (therapist?.id) {
+      setTherapistID(therapist.id);
+    }
+  }, [therapist]);
   // Form submission handler
-  const handleSubmission = e => {
+  const handleSubmission = async e => {
     e.preventDefault() // Prevent default form submission behavior
 
     // Check if all required fields are filled
@@ -67,6 +73,7 @@ function RightSection ({ therapist }) {
 
     // Create formData object with all form values
     const formData = {
+      therapistID,
       sessionMode,
       typeOfSession,
       selectedSlot,
@@ -76,6 +83,34 @@ function RightSection ({ therapist }) {
     }
 
     console.log('Form Data:', formData) // Log form data (can be sent to server)
+
+
+    try {
+      const response = await fetch('/api/formSubmission', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
+
+      if (response.ok) {
+        const result = await response.json()
+        setMessage('Booking confirmed! We will contact you shortly.')
+        setSessionMode('')
+        setTypeOfSession('')
+        setSelectedSlot('')
+        setName('')
+        setEmail('')
+        setPhone('')
+      } else {
+        const error = await response.json()
+        setMessage(`Failed to book session: ${error.message}`)
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error)
+      setMessage('An unexpected error occurred. Please try again.')
+    }
   }
 
   return (
@@ -141,7 +176,7 @@ function RightSection ({ therapist }) {
                 htmlFor='sessionType-individual'
                 className='ml-2 text-sm font-medium text-gray-700'
               >
-                Individual
+                Individual - ₹{therapist.individualPrice}
               </label>
             </div>
             <div className='flex items-center'>
@@ -158,7 +193,7 @@ function RightSection ({ therapist }) {
                 htmlFor='sessionType-couples'
                 className='ml-2 text-sm font-medium text-gray-700'
               >
-                Couples
+                Couples - ₹{therapist.couplesPrice}
               </label>
             </div>
           </div>
@@ -256,7 +291,11 @@ function leftSection (therapist) {
             </li>
           </ul>
         </div>
-        <Prices therapistID={therapist.id} />
+        <div>
+            <h3 className="text-lg font-medium">Fees for {therapist.name}:</h3>
+            <p>Individual: ₹{therapist.individualPrice}</p>
+            <p>Couples: ₹{therapist.couplesPrice}</p>
+        </div>
       </div>
     </>
   )

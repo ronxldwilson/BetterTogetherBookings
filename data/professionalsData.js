@@ -9,8 +9,9 @@ const profileData = [
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis n',
     timing: 'Fri 10:00 PM - 11:00 PM',
+    education: ['MSc Counselling Psychology','BSc Something'],
     individualPrice: 1000,
-    couplesPrice: 2000,
+    couplesPrice: 4000,
     profileImage: '/images/therapist/Issac.jpg'
   },
   {
@@ -23,6 +24,7 @@ const profileData = [
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis n',
     timing: 'Fri 10:00 PM - 11:00 PM',
+    education: 'MSc Counselling Psychology',
     individualPrice: 1000,
     couplesPrice: 2000,
     profileImage: '/images/therapist/Issac.jpg'
@@ -37,6 +39,7 @@ const profileData = [
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis n',
     timing: 'Fri 10:00 PM - 11:00 PM',
+    education: 'MSc Counselling Psychology',
     individualPrice: 1000,
     couplesPrice: 2000,
     profileImage: '/images/therapist/Issac.jpg'
