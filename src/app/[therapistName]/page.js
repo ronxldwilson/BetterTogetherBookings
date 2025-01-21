@@ -33,29 +33,6 @@ const TherapistBooking = ({ params }) => {
     return <div>Loading...</div>
   }
 
-  const createOrderId = async (amount) => {
-    try {
-      const response = await fetch('/api/order', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          amount: parseFloat(amount) * 100,
-        }),
-      });
-  
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-  
-      const data = await response.json();
-      return data.orderId;
-    } catch (error) {
-      console.error('There was a problem with your fetch operation:', error);
-    }
-  };
-  
   const processPayment = async (e) => {
     e.preventDefault();
     try {
@@ -124,120 +101,148 @@ const TherapistBooking = ({ params }) => {
   )
 }
 
+
+const createOrderId = async (amount) => {
+  try {
+    const response = await fetch('/api/order', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        amount: parseFloat(amount) * 100,
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+
+    const data = await response.json();
+    return data.orderId;
+  } catch (error) {
+    console.error('There was a problem with your fetch operation:', error);
+  }
+};
+
+
 // RightSection component: Contains the booking form
-function RightSection ({ therapist }) {
-  // Form values state
-  const [sessionMode, setSessionMode] = useState('')
-  const [typeOfSession, setTypeOfSession] = useState('')
-  const [selectedSlot, setSelectedSlot] = useState('')
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [phone, setPhone] = useState('')
-  const [therapistID, setTherapistID] = useState('')
-  const [message, setMessage] = useState('')
+function RightSection({ therapist }) {
+  const [sessionMode, setSessionMode] = useState('');
+  const [typeOfSession, setTypeOfSession] = useState('');
+  const [selectedSlot, setSelectedSlot] = useState('');
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [therapistID, setTherapistID] = useState('');
+  const [message, setMessage] = useState('');
 
   useEffect(() => {
     if (therapist?.id) {
-      setTherapistID(therapist.id)
+      setTherapistID(therapist.id);
     }
-  }, [therapist])
-  // Form submission handler
-  const handleSubmission = async e => {
-    e.preventDefault() // Prevent default form submission behavior
+  }, [therapist]);
 
-    // Check if all required fields are filled
-    if (
-      !sessionMode ||
-      !typeOfSession ||
-      !selectedSlot ||
-      !name ||
-      !email ||
-      !phone
-    ) {
-      alert('Please fill in all fields before submitting the form.') // Alert user if any field is empty
-      return
+  const handleSubmission = async (e) => {
+    e.preventDefault();
+
+    if (!sessionMode || !typeOfSession || !selectedSlot || !name || !email || !phone) {
+      alert('Please fill in all fields before submitting the form.');
+      return;
     }
 
-    // Create formData object with all form values
-    const formData = {
-      therapistID,
-      sessionMode,
-      typeOfSession,
-      selectedSlot,
-      name,
-      email,
-      phone
-    }
-
-    console.log('Form Data:', formData) // Log form data (can be sent to server)
+    const amount =
+      typeOfSession === 'individual'
+        ? therapist.individualPrice
+        : therapist.couplesPrice;
 
     try {
-      const response = await fetch('/api/formSubmission', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formData)
-      })
+      // Create the order ID using the selected amount
+      const orderId = await createOrderId(amount);
 
-      if (response.ok) {
-        const result = await response.json()
-        setMessage('Booking confirmed! We will contact you shortly.')
-        setSessionMode('')
-        setTypeOfSession('')
-        setSelectedSlot('')
-        setName('')
-        setEmail('')
-        setPhone('')
-      } else {
-        const error = await response.json()
-        setMessage(`Failed to book session: ${error.message}`)
-      }
+      // Proceed with payment using Razorpay
+      const options = {
+        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID, // Use public key
+        amount: amount * 100,
+        currency: 'INR',
+        name: therapist.name,
+        description: `Session with ${therapist.name}`,
+        order_id: orderId,
+        handler: async function (response) {
+          const data = {
+            orderCreationId: orderId,
+            razorpayPaymentId: response.razorpay_payment_id,
+            razorpayOrderId: response.razorpay_order_id,
+            razorpaySignature: response.razorpay_signature,
+          };
+
+          const result = await fetch('/api/verify', {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: { 'Content-Type': 'application/json' },
+          });
+
+          const res = await result.json();
+          if (res.isOk) {
+            setMessage('Payment succeeded!');
+            // Redirect or take further action
+          } else {
+            setMessage(`Payment failed: ${res.message}`);
+          }
+        },
+        prefill: {
+          name: name,
+          email: email,
+        },
+        theme: {
+          color: '#3399cc',
+        },
+      };
+
+      const paymentObject = new window.Razorpay(options);
+      paymentObject.on('payment.failed', function (response) {
+        alert(`Payment failed: ${response.error.description}`);
+      });
+      paymentObject.open();
     } catch (error) {
-      console.error('Error submitting form:', error)
-      setMessage('An unexpected error occurred. Please try again.')
+      console.error('Error during payment process:', error);
+      setMessage('An error occurred. Please try again later.');
     }
-  }
+  };
 
   return (
-    <div className='lg:w-3/5 bg-gray-100 p-6 rounded-lg shadow-md'>
-      <h2 className='text-xl font-semibold mb-4'>Book Your Session</h2>
-      <form className='space-y-4' onSubmit={handleSubmission}>
+    <div className="lg:w-3/5 bg-gray-100 p-6 rounded-lg shadow-md">
+      <h2 className="text-xl font-semibold mb-4">Book Your Session</h2>
+      <form className="space-y-4" onSubmit={handleSubmission}>
         {/* Session Mode */}
         <div>
-          <label className='block text-sm font-bold mb-2'>Select Mode</label>
-          <div className='space-y-2'>
-            <div className='flex items-center'>
+          <label className="block text-sm font-bold mb-2">Select Mode</label>
+          <div className="space-y-2">
+            <div className="flex items-center">
               <input
-                type='radio'
-                id='mode-online'
-                name='mode'
-                value='online'
-                className='w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500'
+                type="radio"
+                id="mode-online"
+                name="mode"
+                value="online"
+                className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
                 checked={sessionMode === 'online'}
-                onChange={e => setSessionMode(e.target.value)}
+                onChange={(e) => setSessionMode(e.target.value)}
               />
-              <label
-                htmlFor='mode-online'
-                className='ml-2 text-sm font-medium text-gray-700'
-              >
+              <label htmlFor="mode-online" className="ml-2 text-sm font-medium text-gray-700">
                 Online
               </label>
             </div>
-            <div className='flex items-center'>
+            <div className="flex items-center">
               <input
-                type='radio'
-                id='mode-offline'
-                name='mode'
-                value='offline'
-                className='w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500'
+                type="radio"
+                id="mode-offline"
+                name="mode"
+                value="offline"
+                className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
                 checked={sessionMode === 'offline'}
-                onChange={e => setSessionMode(e.target.value)}
+                onChange={(e) => setSessionMode(e.target.value)}
               />
-              <label
-                htmlFor='mode-offline'
-                className='ml-2 text-sm font-medium text-gray-700'
-              >
+              <label htmlFor="mode-offline" className="ml-2 text-sm font-medium text-gray-700">
                 Offline
               </label>
             </div>
@@ -246,40 +251,38 @@ function RightSection ({ therapist }) {
 
         {/* Type of Session */}
         <div>
-          <label className='block text-sm font-bold mb-2'>
-            Type of Session
-          </label>
-          <div className='space-y-2'>
-            <div className='flex items-center'>
+          <label className="block text-sm font-bold mb-2">Type of Session</label>
+          <div className="space-y-2">
+            <div className="flex items-center">
               <input
-                type='radio'
-                id='sessionType-individual'
-                name='sessionType'
-                value='individual'
-                className='w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500'
+                type="radio"
+                id="sessionType-individual"
+                name="sessionType"
+                value="individual"
+                className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
                 checked={typeOfSession === 'individual'}
-                onChange={e => setTypeOfSession(e.target.value)}
+                onChange={(e) => setTypeOfSession(e.target.value)}
               />
               <label
-                htmlFor='sessionType-individual'
-                className='ml-2 text-sm font-medium text-gray-700'
+                htmlFor="sessionType-individual"
+                className="ml-2 text-sm font-medium text-gray-700"
               >
                 Individual - ₹{therapist.individualPrice}
               </label>
             </div>
-            <div className='flex items-center'>
+            <div className="flex items-center">
               <input
-                type='radio'
-                id='sessionType-couples'
-                name='sessionType'
-                value='couples'
-                className='w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500'
+                type="radio"
+                id="sessionType-couples"
+                name="sessionType"
+                value="couples"
+                className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
                 checked={typeOfSession === 'couples'}
-                onChange={e => setTypeOfSession(e.target.value)}
+                onChange={(e) => setTypeOfSession(e.target.value)}
               />
               <label
-                htmlFor='sessionType-couples'
-                className='ml-2 text-sm font-medium text-gray-700'
+                htmlFor="sessionType-couples"
+                className="ml-2 text-sm font-medium text-gray-700"
               >
                 Couples - ₹{therapist.couplesPrice}
               </label>
@@ -289,7 +292,7 @@ function RightSection ({ therapist }) {
 
         {/* Date & Time */}
         <div>
-          <label htmlFor='dateTime' className='block text-sm font-bold'>
+          <label htmlFor="dateTime" className="block text-sm font-bold">
             Date & Time
           </label>
           <Calendar
@@ -302,48 +305,50 @@ function RightSection ({ therapist }) {
 
         {/* Contact Details */}
         <div>
-          <label htmlFor='contactDetails' className='block text-sm font-bold'>
+          <label htmlFor="contactDetails" className="block text-sm font-bold">
             Contact Details
           </label>
-          <div className='space-y-5'>
+          <div className="space-y-5">
             <input
-              type='text'
-              id='name'
-              className='w-full border-gray-300 rounded-lg p-2'
-              placeholder='Name'
+              type="text"
+              id="name"
+              className="w-full border-gray-300 rounded-lg p-2"
+              placeholder="Name"
               value={name}
-              onChange={e => setName(e.target.value)}
+              onChange={(e) => setName(e.target.value)}
             />
             <input
-              type='email'
-              id='email'
-              className='w-full border-gray-300 rounded-lg p-2'
-              placeholder='Email'
+              type="email"
+              id="email"
+              className="w-full border-gray-300 rounded-lg p-2"
+              placeholder="Email"
               value={email}
-              onChange={e => setEmail(e.target.value)}
+              onChange={(e) => setEmail(e.target.value)}
             />
             <input
-              type='text'
-              id='phone'
-              className='w-full border-gray-300 rounded-lg p-2'
-              placeholder='Phone'
+              type="text"
+              id="phone"
+              className="w-full border-gray-300 rounded-lg p-2"
+              placeholder="Phone"
               value={phone}
-              onChange={e => setPhone(e.target.value)}
+              onChange={(e) => setPhone(e.target.value)}
             />
           </div>
         </div>
 
         {/* Submit Button */}
         <button
-          type='submit'
-          className='w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700'
+          type="submit"
+          className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700"
         >
           Confirm Booking
         </button>
       </form>
+      {message && <p className="text-center text-red-500 mt-4">{message}</p>}
     </div>
-  )
+  );
 }
+
 
 // Left section component: Displays therapist details
 function leftSection (therapist) {

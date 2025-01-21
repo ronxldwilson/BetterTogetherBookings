@@ -1,8 +1,9 @@
-const crypto = require('crypto'); // Import crypto module
+import crypto from 'crypto'; // Import crypto module
+import { NextResponse } from 'next/server'; // Import NextResponse for responses
 
 // Function to generate the Razorpay signature
 const generatedSignature = (razorpayOrderId, razorpayPaymentId) => {
-  const keySecret = process.env.key_secret; // Fetch secret key from environment variables
+  const keySecret = process.env.RAZORPAY_KEY_SECRET; // Fetch secret key from environment variables
   if (!keySecret) {
     throw new Error(
       'Razorpay key secret is not defined in environment variables.'
@@ -10,46 +11,45 @@ const generatedSignature = (razorpayOrderId, razorpayPaymentId) => {
   }
   const sig = crypto
     .createHmac('sha256', keySecret) // Create HMAC using the secret key
-    .update(razorpayOrderId + '|' + razorpayPaymentId) // Update with the concatenated string
+    .update(`${razorpayOrderId}|${razorpayPaymentId}`) // Update with the concatenated string
     .digest('hex'); // Generate the hex digest
   return sig; // Return the generated signature
 };
 
-// Handler function for the POST request
-export default async function handler(req, res) {
-  if (req.method === 'POST') {
-    try {
-      const { orderCreationId, razorpayPaymentId, razorpaySignature } =
-        req.body; // Extract details from the request body
+// POST handler function
+export async function POST(req) {
+  try {
+    const { orderCreationId, razorpayPaymentId, razorpaySignature } =
+      await req.json(); // Extract details from the request body
 
-      const signature = generatedSignature(orderCreationId, razorpayPaymentId); // Generate the signature
+    const signature = generatedSignature(orderCreationId, razorpayPaymentId); // Generate the signature
 
-      // Compare the generated signature with the received signature
-      if (signature !== razorpaySignature) {
-        return res.status(400).json({
-          message: 'Payment verification failed',
-          isOk: false,
-        });
-      }
-
-      // If the signature matches, return success
-      return res.status(200).json({
-        message: 'Payment verified successfully',
-        isOk: true,
-      });
-    } catch (error) {
-      console.error('Error during payment verification:', error);
-      return res.status(500).json({
-        message: 'Internal server error',
-        isOk: false,
-      });
+    // Compare the generated signature with the received signature
+    if (signature !== razorpaySignature) {
+      return NextResponse.json(
+        { message: 'Payment verification failed', isOk: false },
+        { status: 400 }
+      );
     }
-  } else {
-    // Handle non-POST requests
-    res.setHeader('Allow', ['POST']);
-    return res.status(405).json({
-      message: `Method ${req.method} not allowed`,
-      isOk: false,
-    });
+
+    // If the signature matches, return success
+    return NextResponse.json(
+      { message: 'Payment verified successfully', isOk: true },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error('Error during payment verification:', error);
+    return NextResponse.json(
+      { message: 'Internal server error', isOk: false },
+      { status: 500 }
+    );
   }
+}
+
+// Default response for non-POST requests
+export async function OPTIONS() {
+  return NextResponse.json(
+    { message: 'Method not allowed', isOk: false },
+    { status: 405 }
+  );
 }

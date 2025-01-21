@@ -1,12 +1,13 @@
-const Razorpay = require('razorpay'); // Import Razorpay SDK
+import Razorpay from 'razorpay'; // Import Razorpay SDK
+import { NextResponse } from 'next/server'; // Import NextResponse for API response
 
-export default async function handler(req, res) {
+export async function POST(req) {
   if (req.method === 'POST') {
-    const { amount, currency } = req.body;
+    const { amount, currency } = await req.json();
 
     const razorpay = new Razorpay({
-      key_id: process.env.key_id,
-      key_secret: process.env.key_secret,
+      key_id: process.env.RAZORPAY_KEY_ID,
+      key_secret: process.env.RAZORPAY_KEY_SECRET,
     });
 
     // Generate a unique receipt ID using a timestamp
@@ -21,12 +22,12 @@ export default async function handler(req, res) {
     try {
       const order = await razorpay.orders.create(options);
       console.log(order);
-      res.status(200).json({ orderId: order.id });
+      return NextResponse.json({ orderId: order.id }, { status: 200 });
     } catch (error) {
       console.error(error);
-      res.status(500).json({ error: 'Failed to create order' });
+      return NextResponse.json({ error: 'Failed to create order' }, { status: 500 });
     }
   } else {
-    res.status(405).json({ error: 'Method not allowed' });
+    return NextResponse.json({ error: 'Method not allowed' }, { status: 405 });
   }
 }
