@@ -101,6 +101,33 @@ const TherapistBooking = ({ params }) => {
   )
 }
 
+const addUser = async (name, email, phone) => {
+  try {
+    const response = await fetch('/api/formSubmission', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name: name,
+        email: email, 
+        phone: phone,
+      }),
+    });
+
+    if (!response.ok) {
+      const errorDetails = await response.text(); // Get additional error info from the server
+      throw new Error(`Network response was not ok: ${errorDetails}`);
+    }
+
+    const data = await response.json();
+    return data.orderId;
+  } catch (error) {
+    console.error('There was a problem with your fetch operation:', error);
+    throw error; // Re-throwing to handle it elsewhere if needed
+  }
+};
+
 
 const createOrderId = async (amount) => {
   try {
@@ -186,6 +213,13 @@ function RightSection({ therapist }) {
           if (res.isOk) {
             setMessage('Payment succeeded!');
             // Redirect or take further action
+            try{
+              const user_id = await addUser(name,email,phone)
+              console.log('USER INSERT:', user_id);
+            }catch(error){
+
+              console.error('Error adding user:', error);
+            }
           } else {
             setMessage(`Payment failed: ${res.message}`);
           }
