@@ -30,7 +30,6 @@ suscipit quas? Nulla, placeat. Voluptatem quaerat non architecto ab laudantium
 modi minima sunt esse temporibus sint culpa, recusandae aliquam numquam 
 totam ratione voluptas quod exercitationem fuga. Possimus quis earum veniam 
 quasi aliquam eligendi, placeat qui corporis!`,
-    timing: 'Fri 10:00 PM - 11:00 PM',
     education: [
       'MSc Counselling Psychology',
       'BA in Psychology, Sociology and Literature'
@@ -66,7 +65,6 @@ quasi aliquam eligendi, placeat qui corporis!`,
     languages: 'Fluent in English and Malayalam',
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis n',
-    timing: 'Fri 10:00 PM - 11:00 PM',
     education: 'MSc Counselling Psychology',
     individualPrice: 1000,
     couplesPrice: 2000,
@@ -81,7 +79,6 @@ quasi aliquam eligendi, placeat qui corporis!`,
     languages: 'Fluent in English and Malayalam',
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis n',
-    timing: 'Fri 10:00 PM - 11:00 PM',
     education: 'MSc Counselling Psychology',
     individualPrice: 1000,
     couplesPrice: 2000,

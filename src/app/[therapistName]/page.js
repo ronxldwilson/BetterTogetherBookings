@@ -105,6 +105,7 @@ const addPayment = async (orderID, name, email, phone) => {
   }
 }
 
+
 const addSchedule = async (professional_id, date, slot, userId, orderId) => {
   try {
     const response = await fetch('/api/addSchedule', {
@@ -133,6 +134,28 @@ const addSchedule = async (professional_id, date, slot, userId, orderId) => {
     throw error // Re-throwing to handle it elsewhere if needed
   }
 }
+
+const sendEmail = async (to, subject, text) => {
+  try {
+    const response = await fetch('/api/send-email', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ to, subject, text }),
+    });
+
+    if (!response.ok) {
+      const errorDetails = await response.text(); // Get error details if available
+      throw new Error(`Failed to send email: ${errorDetails}`);
+    }
+
+    const data = await response.json();
+    return data.success; // Return the success status to the caller
+  } catch (error) {
+    console.error('Error sending email:', error);
+    throw error; // Re-throw the error to handle it elsewhere if needed
+  }
+};
+
 
 const createOrderId = async amount => {
   try {
@@ -242,6 +265,7 @@ function RightSection ({ therapist }) {
                 userId,
                 orderId
               )
+              sendEmail(email, "TESTING", "TESTING")
               console.log('SCHEDULE DONE')
             } catch (error) {
               console.error('Error adding user:', error)
