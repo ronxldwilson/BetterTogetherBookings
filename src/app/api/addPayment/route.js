@@ -1,13 +1,13 @@
 import { supabase } from '../../../lib/supabase'
 
-export async function POST (req) {
+export async function POST(req) {
   try {
     const body = await req.json()
 
-    const { email, name, phone } = body
+    const { orderID, email, name, phone } = body
 
     // Validate required fields
-    if (!email || !name || !phone) {
+    if (!orderID || !email || !name || !phone) {
       return new Response(
         JSON.stringify({ error: 'Missing required fields' }),
         {
@@ -17,10 +17,15 @@ export async function POST (req) {
       )
     }
 
-    // Insert data into the `user` table
+    // Insert data into the `payments` table, mapping `orderID` to `order_id`
     const { data, error } = await supabase
-      .from('user')
-      .insert([{ email, name, phone }])
+      .from('payments')
+      .insert([{ 
+        order_id: orderID, 
+        email, 
+        name, 
+        phone 
+      }])
       
     if (error) {
       console.error('Supabase Error:', error)
@@ -28,7 +33,7 @@ export async function POST (req) {
     }
 
     return new Response(
-      JSON.stringify({ message: 'User inserted successfully', data }),
+      JSON.stringify({ message: 'Payment inserted successfully', data }),
       {
         status: 200,
         headers: { 'Content-Type': 'application/json' }

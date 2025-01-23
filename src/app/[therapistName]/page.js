@@ -70,6 +70,35 @@ const addUser = async (name, email, phone) => {
     }
 
     const data = await response.json();
+    return data.userId; // ### THIS NEEDS TO BE CHANGED
+  } catch (error) {
+    console.error('There was a problem with your fetch operation:', error);
+    throw error; // Re-throwing to handle it elsewhere if needed
+  }
+};
+
+
+const addPayment = async (orderID, name, email, phone) => {
+  try {
+    const response = await fetch('/api/addPayment', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        orderID: orderID,
+        name: name,
+        email: email, 
+        phone: phone,
+      }),
+    });
+
+    if (!response.ok) {
+      const errorDetails = await response.text(); // Get additional error info from the server
+      throw new Error(`Network response was not ok: ${errorDetails}`);
+    }
+
+    const data = await response.json();
     return data.orderId; // ### THIS NEEDS TO BE CHANGED
   } catch (error) {
     console.error('There was a problem with your fetch operation:', error);
@@ -77,6 +106,35 @@ const addUser = async (name, email, phone) => {
   }
 };
 
+
+const addSchedule = async (professional_id, date, slot, userId,orderId) => {
+  try {
+    const response = await fetch('/api/addSchedule', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        professional_id: professional_id,
+        date: date,
+        slot: slot, 
+        session_with: userId,
+        order_id:orderId
+      }),
+    });
+
+    if (!response.ok) {
+      const errorDetails = await response.text(); // Get additional error info from the server
+      throw new Error(`Network response was not ok: ${errorDetails}`);
+    }
+
+    const data = await response.json();
+    return data.orderId; // ### THIS NEEDS TO BE CHANGED
+  } catch (error) {
+    console.error('There was a problem with your fetch operation:', error);
+    throw error; // Re-throwing to handle it elsewhere if needed
+  }
+};
 
 const createOrderId = async (amount) => {
   try {
@@ -164,10 +222,15 @@ function RightSection({ therapist }) {
             console.log(res)
             // Redirect or take further action
             try{
-              const STEP1 = await addUser(name,email,phone)
-              const STEP2 = await addPayment(name,email,phone)
-
-              console.log('USER INSERT:', user_id);
+              const userId = await addUser(name,email,phone)
+              if (!userId) {
+                throw new Error('Failed to retrieve a valid userId from addUser function');
+              }
+              console.log('USER INSERT:DONE:',userId);
+              const STEP2 = await addPayment(orderId,name,email,phone)
+              console.log('PAYMENT INSERT:DONE');
+              const STEP3 = await addSchedule(therapist.id,selectedSlot.slice(0,10),selectedSlot.slice(11),userId,orderId)
+              console.log('SCHEDULE DONE')
             }catch(error){
 
               console.error('Error adding user:', error);
