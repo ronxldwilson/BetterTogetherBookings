@@ -38,6 +38,7 @@ quasi aliquam eligendi, placeat qui corporis!`,
     couplesPrice: 4000,
     profileImage: '/images/therapist/Issac.jpg',
     rating: 5,
+    email:"queries.bettertogether@gmail.com",
     testimonials: [
       {
         name: 'Jane Doe',

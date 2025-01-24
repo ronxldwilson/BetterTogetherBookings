@@ -24,8 +24,6 @@ export async function POST (req) {
 
     const signature = generatedSignature(orderCreationId, razorpayPaymentId) // Generate the signature
 
-    console.log(signature)
-    console.log(req)
     // Compare the generated signature with the received signature
     if (signature !== razorpaySignature) {
       return NextResponse.json(
