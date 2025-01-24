@@ -1,90 +1,99 @@
-import nodemailer from 'nodemailer'
-import { google } from 'googleapis'
+import nodemailer from 'nodemailer';
+import { google } from 'googleapis';
 
-export async function POST (request) {
-  const { to, date, slot, therapistName, therapistEmail, orderId } =
-    await request.json()
+export async function POST(request) {
+  const { to, date, slot, therapistName, therapistEmail, orderId } = await request.json();
 
-  const transporter = nodemailer.createTransport({
-    service: 'Gmail',
-    auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS
-    }
-  })
+  const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GOOGLE_REFRESH_TOKEN, EMAIL_USER, EMAIL_PASS } = process.env;
+
+  // Configure OAuth2 Client
+  const oAuth2Client = new google.auth.OAuth2(
+    GOOGLE_CLIENT_ID,
+    GOOGLE_CLIENT_SECRET,
+    'https://developers.google.com/oauthplayground' // Redirect URI
+  );
+  oAuth2Client.setCredentials({ refresh_token: GOOGLE_REFRESH_TOKEN });
 
   try {
-    // Parse start time and calculate end time (1 hour later)
-    const [time, period] = slot.split(' ')
-    const [startHourStr, startMinute] = time.split(':')
-    let startHour = parseInt(startHourStr, 10)
-    if (period === 'PM' && startHour !== 12) startHour += 12
-    if (period === 'AM' && startHour === 12) startHour = 0
+    // Authenticate Google Calendar API
+    const calendar = google.calendar({ version: 'v3', auth: oAuth2Client });
 
-    const startDateTime = new Date(date)
-    startDateTime.setHours(startHour, startMinute, 0)
-    const endDateTime = new Date(startDateTime)
-    endDateTime.setHours(endDateTime.getHours() + 1)
+    // Parse the slot and date into start and end times
+    const [time, period] = slot.split(' ');
+    const [startHourStr, startMinute] = time.split(':');
+    let startHour = parseInt(startHourStr, 10);
+    if (period === 'PM' && startHour !== 12) startHour += 12;
+    if (period === 'AM' && startHour === 12) startHour = 0;
 
-    // Google Calendar API setup
-    const oAuth2Client = new google.auth.OAuth2(
-      process.env.CLIENT_ID,
-      process.env.CLIENT_SECRET,
-      process.env.REDIRECT_URI
-    )
-    oAuth2Client.setCredentials({ refresh_token: process.env.REFRESH_TOKEN })
+    const startDateTime = new Date(date);
+    startDateTime.setHours(startHour, startMinute, 0);
+    const endDateTime = new Date(startDateTime);
+    endDateTime.setHours(endDateTime.getHours() + 1);
 
-    const calendar = google.calendar({ version: 'v3', auth: oAuth2Client })
-
-    // Create calendar event with a Meet link
     const event = {
       summary: `Session with ${therapistName}`,
-      description: `Session booked with Better Together Wellness`,
-      start: { dateTime: startDateTime.toISOString() },
-      end: { dateTime: endDateTime.toISOString() },
+      description: `Session scheduled via Better Together Wellness`,
+      start: {
+        dateTime: startDateTime.toISOString(),
+        timeZone: 'Asia/Kolkata', // Adjust as per your timezone
+      },
+      end: {
+        dateTime: endDateTime.toISOString(),
+        timeZone: 'Asia/Kolkata',
+      },
       attendees: [
-        { email: to }, // User
-        { email: therapistEmail } // Therapist
+        { email: to },
+        { email: therapistEmail },
       ],
       conferenceData: {
         createRequest: {
-          requestId: orderId, // Unique ID for this request
-          conferenceSolutionKey: { type: 'hangoutsMeet' }
-        }
-      }
-    }
+          requestId: orderId,
+          conferenceSolutionKey: { type: 'hangoutsMeet' },
+        },
+      },
+    };
 
+    // Insert event with GMeet link
     const response = await calendar.events.insert({
       calendarId: 'primary',
       resource: event,
-      conferenceDataVersion: 1
-    })
+      conferenceDataVersion: 1,
+      sendUpdates: 'all', // Notify attendees
+    });
 
-    const meetLink = response.data.hangoutLink
+    const meetingLink = response.data.hangoutLink;
 
-    // Create iCalendar (.ics) content
-    const calendarInvite = `
+    // Create an iCal string for the calendar invite
+    const iCalEvent = `
 BEGIN:VCALENDAR
 VERSION:2.0
-PRODID:-//Better Together Wellness//EN
 CALSCALE:GREGORIAN
-METHOD:REQUEST
 BEGIN:VEVENT
-UID:${orderId}@bettertogether.com
-DTSTAMP:${new Date().toISOString().replace(/[-:]/g, '').split('.')[0]}Z
+SUMMARY:Session with ${therapistName}
+DESCRIPTION:Session scheduled via Better Together Wellness\nMeeting Link: ${meetingLink}
 DTSTART:${startDateTime.toISOString().replace(/[-:]/g, '').split('.')[0]}Z
 DTEND:${endDateTime.toISOString().replace(/[-:]/g, '').split('.')[0]}Z
-SUMMARY:Session with ${therapistName}
-DESCRIPTION:Your session with ${therapistName} is scheduled. Join the meeting at ${meetLink}
-LOCATION:Online
-ATTENDEE;CN=${therapistName};RSVP=TRUE:mailto:${therapistEmail}
-ATTENDEE;CN=User;RSVP=TRUE:mailto:${to}
+LOCATION:${meetingLink}
+STATUS:CONFIRMED
+ORGANIZER;CN=Better Together Wellness:MAILTO:${EMAIL_USER}
+ATTENDEE;CN=Customer;RSVP=TRUE:MAILTO:${to}
+ATTENDEE;CN=${therapistName};RSVP=TRUE:MAILTO:${therapistEmail}
 END:VEVENT
-END:VCALENDAR`
+END:VCALENDAR
+    `.trim();
 
-    // Email to the user
+    // Configure Nodemailer transporter
+    const transporter = nodemailer.createTransport({
+      service: 'Gmail',
+      auth: {
+        user: EMAIL_USER,
+        pass: EMAIL_PASS,
+      },
+    });
+
+    // Send the email to the user
     const userEmailContent = {
-      from: process.env.EMAIL_USER,
+      from: EMAIL_USER,
       to,
       subject: 'Your Booking Confirmation with Calendar Invite',
       text: `Dear Customer,
@@ -96,22 +105,34 @@ Here are your session details:
 - Date: ${date}
 - Time Slot: ${slot}
 - Booking ID: ${orderId}
-- Google Meet Link: ${meetLink}
+- Google Meet Link: ${meetingLink}
 
 A calendar invite is attached to help you save the session in your calendar.
 
 Best regards,
 Better Together Wellness Team`,
+      html: `
+        <p>Dear Customer,</p>
+        <p>Thank you for booking your session with <strong>Better Together Wellness</strong>.</p>
+        <p>
+          <strong>Therapist:</strong> ${therapistName}<br>
+          <strong>Date:</strong> ${date}<br>
+          <strong>Time Slot:</strong> ${slot}<br>
+          <strong>Booking ID:</strong> ${orderId}<br>
+          <strong>Google Meet Link:</strong> <a href="${meetingLink}">${meetingLink}</a>
+        </p>
+        <p>A calendar invite is attached to help you save the session in your calendar.</p>
+        <p>Best regards,<br>Better Together Wellness Team</p>
+      `,
       icalEvent: {
-        filename: 'session-invite.ics',
-        method: 'request',
-        content: calendarInvite
-      }
-    }
+        content: iCalEvent,
+        method: 'REQUEST',
+      },
+    };
 
-    // Email to the therapist
+    // Send the email to the therapist
     const therapistEmailContent = {
-      from: process.env.EMAIL_USER,
+      from: EMAIL_USER,
       to: therapistEmail,
       subject: 'New Session Booking Alert with Calendar Invite',
       text: `Dear ${therapistName},
@@ -122,30 +143,37 @@ Here are the session details:
 - Date: ${date}
 - Time Slot: ${slot}
 - Booking ID: ${orderId}
-- Google Meet Link: ${meetLink}
+- Google Meet Link: ${meetingLink}
 
 A calendar invite is attached to help you save the session in your calendar.
 
 Best regards,
 Better Together Wellness Team`,
+      html: `
+        <p>Dear ${therapistName},</p>
+        <p>A new session has been booked with you.</p>
+        <p>
+          <strong>Date:</strong> ${date}<br>
+          <strong>Time Slot:</strong> ${slot}<br>
+          <strong>Booking ID:</strong> ${orderId}<br>
+          <strong>Google Meet Link:</strong> <a href="${meetingLink}">${meetingLink}</a>
+        </p>
+        <p>A calendar invite is attached to help you save the session in your calendar.</p>
+        <p>Best regards,<br>Better Together Wellness Team</p>
+      `,
       icalEvent: {
-        filename: 'session-invite.ics',
-        method: 'request',
-        content: calendarInvite
-      }
-    }
+        content: iCalEvent,
+        method: 'REQUEST',
+      },
+    };
 
     // Send both emails
-    await transporter.sendMail(userEmailContent)
-    await transporter.sendMail(therapistEmailContent)
+    await transporter.sendMail(userEmailContent);
+    await transporter.sendMail(therapistEmailContent);
 
-    return new Response(JSON.stringify({ success: true, meetLink }), {
-      status: 200
-    })
+    return new Response(JSON.stringify({ success: true, meetingLink }), { status: 200 });
   } catch (error) {
-    console.error('Error sending email:', error)
-    return new Response(JSON.stringify({ error: error.message }), {
-      status: 500
-    })
+    console.error('Error:', error);
+    return new Response(JSON.stringify({ error: error.message }), { status: 500 });
   }
 }
