@@ -1,6 +1,6 @@
 import FooterSection from '@/components/sections/FooterSection';
 import HeaderSection from '@/components/sections/HeaderSection';
-import TherapistCard from '@/components/TherapistCard'; // Renamed for clarity
+import TherapistCard from '@/components/TherapistCard'; 
 import profileData from '../../data/professionalsData';
 
 export default function Home() {

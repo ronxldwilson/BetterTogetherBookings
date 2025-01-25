@@ -4,10 +4,10 @@ export async function POST(req) {
   try {
     const body = await req.json()
 
-    const { email, name, phone } = body
+    const { user_id, email, name, phone } = body
 
     // Validate required fields
-    if (!email || !name || !phone) {
+    if (!user_id || !email || !name || !phone) {
       return new Response(
         JSON.stringify({ error: 'Missing required fields' }),
         {
@@ -17,26 +17,18 @@ export async function POST(req) {
       )
     }
 
-    // Insert data into the `user` table and return the `user_id` field
+    // Insert data into the `user` table with user_id
     const { data, error } = await supabase
       .from('user')
-      .insert([{ email, name, phone }])
-      .select('user_id') // Correct field name returned by Supabase
-
+      .insert([{ user_id,email, name, phone }])
+      
     if (error) {
       console.error('Supabase Error:', error)
       throw new Error(error.message)
     }
 
-    // Ensure userId is correctly retrieved from the data response
-    const userId = data[0]?.user_id;
-
-    if (!userId) {
-      throw new Error('Failed to retrieve userId');
-    }
-
     return new Response(
-      JSON.stringify({ message: 'User inserted successfully', userId }),
+      JSON.stringify({ message: 'User inserted successfully'}),
       {
         status: 200,
         headers: { 'Content-Type': 'application/json' }

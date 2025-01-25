@@ -50,7 +50,7 @@ const TherapistBooking = ({ params }) => {
   )
 }
 
-const addUser = async (name, email, phone) => {
+const addUser = async (user_id, name, email, phone) => {
   try {
     const response = await fetch('/api/addUser', {
       method: 'POST',
@@ -58,6 +58,7 @@ const addUser = async (name, email, phone) => {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
+        user_id: user_id,
         name: name,
         email: email,
         phone: phone
@@ -261,20 +262,18 @@ function RightSection ({ therapist }) {
             console.log(res)
             // Redirect or take further action
             try {
-              const userId = await addUser(name, email, phone)
-              if (!userId) {
-                throw new Error(
-                  'Failed to retrieve a valid userId from addUser function'
-                )
-              }
-              console.log('USER INSERT:DONE:', userId)
+              const user_id = crypto.randomUUID()
+              console.log(user_id)
+              const STEP1 = await addUser(user_id, name, email, phone)
+
+              console.log('USER INSERT:DONE')
               const STEP2 = await addPayment(orderId, name, email, phone)
               console.log('PAYMENT INSERT:DONE')
               const STEP3 = await addSchedule(
                 therapist.id,
                 selectedSlot.slice(0, 10),
                 selectedSlot.slice(11),
-                userId,
+                user_id,
                 orderId
               )
               sendEmail(
