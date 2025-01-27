@@ -19,7 +19,7 @@ export async function POST(req) {
 
     // Insert data into the `user` table with user_id
     const { data, error } = await supabase
-      .from('user')
+      .from('customer')
       .insert([{ user_id,email, name, phone }])
       
     if (error) {
