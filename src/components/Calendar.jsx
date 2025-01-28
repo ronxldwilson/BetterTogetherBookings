@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { supabase } from "../lib/supabase";
 
 const Calendar = ({ id, name, selectedSlot, onChange }) => {
@@ -29,6 +29,10 @@ const Calendar = ({ id, name, selectedSlot, onChange }) => {
           .select("professional_id, date, slot")
           .eq("professional_id", id);
 
+        console.log(data, id)
+        console.log(therapist)
+
+        console.log("Supabase error:", error);
         if (error) throw error;
 
         setTherapist(data);
@@ -113,11 +117,10 @@ const Calendar = ({ id, name, selectedSlot, onChange }) => {
       <div className="flex justify-between items-center mb-6">
         <button
           type="button"
-          className={`py-2 px-6 font-semibold rounded-lg transition-all ${
-            currentPage === 0
-              ? "bg-gray-300 text-gray-600 cursor-not-allowed"
-              : "bg-blue-500 text-white hover:bg-blue-600"
-          }`}
+          className={`py-2 px-6 font-semibold rounded-lg transition-all ${currentPage === 0
+            ? "bg-gray-300 text-gray-600 cursor-not-allowed"
+            : "bg-blue-500 text-white hover:bg-blue-600"
+            }`}
           onClick={handleBack}
           disabled={currentPage === 0}
         >
@@ -125,11 +128,10 @@ const Calendar = ({ id, name, selectedSlot, onChange }) => {
         </button>
         <button
           type="button"
-          className={`py-2 px-6 font-semibold rounded-lg transition-all ${
-            (currentPage + 1) * slotsPerPage >= formattedSlots.length
-              ? "bg-gray-300 text-gray-600 cursor-not-allowed"
-              : "bg-blue-500 text-white hover:bg-blue-600"
-          }`}
+          className={`py-2 px-6 font-semibold rounded-lg transition-all ${(currentPage + 1) * slotsPerPage >= formattedSlots.length
+            ? "bg-gray-300 text-gray-600 cursor-not-allowed"
+            : "bg-blue-500 text-white hover:bg-blue-600"
+            }`}
           onClick={handleNext}
           disabled={(currentPage + 1) * slotsPerPage >= formattedSlots.length}
         >
@@ -156,11 +158,10 @@ const Calendar = ({ id, name, selectedSlot, onChange }) => {
                   return (
                     <button
                       key={slot}
-                      className={`py-2 px-4 rounded-lg text-sm font-medium transition-all ${
-                        isSelected
-                          ? "bg-green-500 text-white hover:bg-green-600"
-                          : "bg-blue-100 text-blue-700 hover:bg-blue-200"
-                      }`}
+                      className={`py-2 px-4 rounded-lg text-sm font-medium transition-all ${isSelected
+                        ? "bg-green-500 text-white hover:bg-green-600"
+                        : "bg-blue-100 text-blue-700 hover:bg-blue-200"
+                        }`}
                       onClick={(e) => {
                         e.preventDefault();
                         handleSlotClick(date, slot);

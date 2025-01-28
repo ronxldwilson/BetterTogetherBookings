@@ -10,6 +10,7 @@ export default function Dashboard() {
   const [selectedSlot, setSelectedSlot] = useState('');
   const [isLoading, setIsLoading] = useState(false); // Loading state
   const [message, setMessage] = useState(''); // Success/error message
+  const [refreshKey, setRefreshKey] = useState(0); // Refresh key for Calendar
   const router = useRouter();
 
   useEffect(() => {
@@ -84,6 +85,7 @@ export default function Dashboard() {
 
       setMessage('Time slot blocked successfully!');
       setSelectedSlot(''); // Clear the selected slot after successful blocking
+      setRefreshKey((prevKey) => prevKey + 1); // Increment refresh key to re-render Calendar
     } catch (error) {
       setMessage('Failed to block time slot. Please try again.');
       console.error(error);
@@ -121,7 +123,9 @@ export default function Dashboard() {
           </h1>
 
           <div>
+            {/* Pass refreshKey as a key to force re-render */}
             <Calendar
+              key={refreshKey} // Force re-render when refreshKey changes
               id="1"
               name="Issac Paul"
               selectedSlot={selectedSlot}
