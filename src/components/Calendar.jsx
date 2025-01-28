@@ -29,10 +29,10 @@ const Calendar = ({ id, name, selectedSlot, onChange }) => {
           .select("professional_id, date, slot")
           .eq("professional_id", id);
 
-        console.log(data, id)
-        console.log(therapist)
+        // console.log(data, id)
+        // console.log(therapist)
 
-        console.log("Supabase error:", error);
+        // console.log("Supabase error:", error);
         if (error) throw error;
 
         setTherapist(data);

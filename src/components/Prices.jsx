@@ -5,7 +5,7 @@ export default function Prices({ therapistID }) {
     const [therapist, setTherapist] = useState(null); // State for therapist data
     const [loading, setLoading] = useState(true); // Loading state
     const [error, setError] = useState(null); // Error state
-    console.log(therapistID)
+    // console.log(therapistID)
     useEffect(() => {
         const fetchTherapistData = async () => {
             try {
@@ -18,7 +18,7 @@ export default function Prices({ therapistID }) {
                 if (error) throw error; // Handle any error
 
                 setTherapist(data); // Set the data in state
-                console.log(therapist)
+                // console.log(therapist)
             } catch (err) {
                 setError('Error loading prices. Please try again later.');
                 console.error('Error fetching professional data:', err);

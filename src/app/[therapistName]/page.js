@@ -259,16 +259,16 @@ function RightSection ({ therapist }) {
           const res = await result.json()
           if (res.isOk) {
             setMessage('Payment succeeded!')
-            console.log(res)
+            // console.log(res)
             // Redirect or take further action
             try {
               const user_id = crypto.randomUUID()
-              console.log(user_id)
+              // console.log(user_id)
               const STEP1 = await addUser(user_id, name, email, phone)
 
-              console.log('USER INSERT:DONE')
+              // console.log('USER INSERT:DONE')
               const STEP2 = await addPayment(orderId, name, email, phone)
-              console.log('PAYMENT INSERT:DONE')
+              // console.log('PAYMENT INSERT:DONE')
               const STEP3 = await addSchedule(
                 therapist.id,
                 selectedSlot.slice(0, 10),
@@ -284,7 +284,7 @@ function RightSection ({ therapist }) {
                 therapist.email,
                 orderId
               ) //to, date, slot, therapistName, therapistEmail, orderId
-              console.log('SCHEDULE DONE')
+              // console.log('SCHEDULE DONE')
             } catch (error) {
               console.error('Error adding user:', error)
             }

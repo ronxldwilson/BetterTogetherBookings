@@ -95,7 +95,7 @@ END:VCALENDAR
     const userEmailContent = {
       from: EMAIL_USER,
       to,
-      subject: 'Your Booking Confirmation with Calendar Invite',
+      subject: '[TESTING] Your Booking Confirmation with Calendar Invite',
       text: `Dear Customer,
 
 Thank you for booking your session with Better Together Wellness.

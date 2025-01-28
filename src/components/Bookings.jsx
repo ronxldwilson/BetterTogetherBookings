@@ -41,7 +41,7 @@ export default function Bookings({ id }) {
     };
 
     const markAsDeleted = async (bookingId) => {
-        console.log("Booking ID", bookingId)
+        // console.log("Booking ID", bookingId)
         try {
             const { error } = await supabase
                 .from("professional_schedule")
@@ -100,7 +100,7 @@ export default function Bookings({ id }) {
                         {bookings
                             .sort((a, b) => new Date(a.date) - new Date(b.date)) // Sorting bookings by date
                             .map((booking) => (
-                                <tr key={booking.id}>
+                                <tr key={booking.schedule_id}>
                                     <td
                                         style={{
                                             padding: "12px",
