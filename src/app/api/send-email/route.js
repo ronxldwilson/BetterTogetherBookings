@@ -134,7 +134,7 @@ Better Together Wellness Team`,
     const therapistEmailContent = {
       from: EMAIL_USER,
       to: therapistEmail,
-      subject: '[TESTIGN] New Session Booking Alert with Calendar Invite',
+      subject: '[TESTING] New Session Booking Alert with Calendar Invite',
       text: `Dear ${therapistName},
 
 A new session has been booked with you.

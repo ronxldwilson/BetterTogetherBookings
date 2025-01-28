@@ -506,7 +506,14 @@ function leftSection (therapist) {
         <div>
           <h3>Location</h3>
           <p>Detailed address will be shared over email</p>
-          <iframe src={therapist.location} width="600" height="450" allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
+          <iframe
+            src={therapist.location}
+            width='600'
+            height='450'
+            allowFullScreen=''
+            loading='lazy'
+            referrerPolicy='no-referrer-when-downgrade'
+          ></iframe>
         </div>
 
         {/* Rating and Testimonials Section */}
