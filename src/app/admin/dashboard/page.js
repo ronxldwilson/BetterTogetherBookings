@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { supabase } from '../../../lib/supabase';
 import { useRouter } from 'next/navigation';
 import Calendar from '@/components/Calendar';
+import Bookings from '@/components/Bookings';
 
 export default function Dashboard() {
   const [user, setUser] = useState(null);
@@ -121,7 +122,11 @@ export default function Dashboard() {
           <h1 className="text-3xl font-bold text-gray-800 mb-6">
             Dashboard Overview
           </h1>
-
+          
+          <h2>My Schedule</h2>
+          <Bookings
+          id="1"
+          />    
           <div>
             {/* Pass refreshKey as a key to force re-render */}
             <Calendar
