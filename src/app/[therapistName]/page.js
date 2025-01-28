@@ -502,6 +502,13 @@ function leftSection (therapist) {
           <p>Couples: ₹{therapist.couplesPrice}</p>
         </div>
 
+        {/* Location */}
+        <div>
+          <h3>Location</h3>
+          <p>Detailed address will be shared over email</p>
+          <iframe src={therapist.location} width="600" height="450" allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+
         {/* Rating and Testimonials Section */}
         <div className='space-y-4'>
           <h3 className='text-lg font-bold'>Rating</h3>

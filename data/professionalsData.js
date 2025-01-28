@@ -38,7 +38,9 @@ quasi aliquam eligendi, placeat qui corporis!`,
     couplesPrice: 4000,
     profileImage: '/images/therapist/Issac.jpg',
     rating: 5,
-    email:"queries.bettertogether@gmail.com",
+    email: 'queries.bettertogether@gmail.com',
+    location:
+      'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3887.8571843422683!2d77.59433067392405!3d12.980984914674835!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae17761506d26b%3A0x1565248049651cb1!2sCubbon%20Park%20Metro%20Entrance%20(Park%20Side)!5e0!3m2!1sen!2sin!4v1738030003333!5m2!1sen!2sin',
     testimonials: [
       {
         name: 'Jane Doe',
