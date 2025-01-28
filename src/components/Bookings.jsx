@@ -11,19 +11,21 @@ export default function Bookings({ id }) {
             const { data, error } = await supabase
                 .from("professional_schedule")
                 .select(`
-          schedule_id,  
-          professional_id,
-          date,
-          slot,
-          is_deleted,
-          session_with (
-            name,
-            phone,
-            email
-          )
-        `)
+                    schedule_id,  
+                    professional_id,
+                    date,
+                    slot,
+                    is_deleted,
+                    session_with (
+                    name,
+                    phone,
+                    email
+                    )
+                `)
                 .eq("professional_id", id)
-                .eq("is_deleted", false); // Fetch only non-deleted bookings
+                .eq("is_deleted", false)
+                .like("order_id", "order%");  // Using LIKE for pattern matching
+            // Fetch only non-deleted bookings
 
             if (error) {
                 console.error("Error fetching bookings:", error);
@@ -91,7 +93,7 @@ export default function Bookings({ id }) {
                             <th style={{ padding: "12px", border: "1px solid #ddd" }}>Date</th>
                             <th style={{ padding: "12px", border: "1px solid #ddd" }}>Time</th>
                             <th style={{ padding: "12px", border: "1px solid #ddd" }}>Details</th>
-                            <th style={{ padding: "12px", border: "1px solid #ddd" }}>Action</th>
+                            {/* <th style={{ padding: "12px", border: "1px solid #ddd" }}>Action</th> */}
                         </tr>
                     </thead>
                     <tbody>
@@ -125,7 +127,7 @@ export default function Bookings({ id }) {
                                         <strong>Phone:</strong> {booking.session_with?.phone || "N/A"} <br />
                                         <strong>Email:</strong> {booking.session_with?.email || "N/A"}
                                     </td>
-                                    <td
+                                    {/* <td
                                         style={{
                                             padding: "12px",
                                             border: "1px solid #ddd",
@@ -144,7 +146,7 @@ export default function Bookings({ id }) {
                                         >
                                             Mark as Deleted
                                         </button>
-                                    </td>
+                                    </td> */}
                                 </tr>
                             ))}
                     </tbody>
