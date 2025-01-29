@@ -1,7 +1,6 @@
 'use client';
 
-
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { supabase } from '../../../lib/supabase';
 import { useRouter } from 'next/navigation';
 
@@ -23,7 +22,11 @@ export default function Login() {
         if (signInError) {
             setError(signInError.message);
         } else {
-            router.push('/admin/dashboard');
+            const { data: user } = await supabase.auth.getUser(); // Fetch user details
+            if (user) {
+                // localStorage.setItem('user_id', user.id); // Store user ID locally
+                router.push('/admin/dashboard'); // Redirect to dashboard
+            }
         }
     };
 
@@ -70,7 +73,6 @@ export default function Login() {
                         Login
                     </button>
                 </form>
-                
             </div>
         </div>
     );

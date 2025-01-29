@@ -1,40 +1,77 @@
-'use client';
+'use client'
 
-import { useEffect, useState } from 'react';
-import { supabase } from '../../../lib/supabase';
-import { useRouter } from 'next/navigation';
-import Calendar from '@/components/Calendar';
-import Bookings from '@/components/Bookings';
+import { useEffect, useState } from 'react'
+import { supabase } from '../../../lib/supabase'
+import { useRouter } from 'next/navigation'
+import Calendar from '@/components/Calendar'
+import Bookings from '@/components/Bookings'
 
-export default function Dashboard() {
-  const [user, setUser] = useState(null);
-  const [selectedSlot, setSelectedSlot] = useState('');
-  const [isLoading, setIsLoading] = useState(false); // Loading state
-  const [message, setMessage] = useState(''); // Success/error message
-  const [refreshKey, setRefreshKey] = useState(0); // Refresh key for Calendar
-  const router = useRouter();
+export default function Dashboard () {
+  const [user, setUser] = useState(null)
+  const [uid, setUID] = useState('')
+  const [selectedSlot, setSelectedSlot] = useState('')
+  const [isLoading, setIsLoading] = useState(false) // Loading state
+  const [message, setMessage] = useState('') // Success/error message
+  const [refreshKey, setRefreshKey] = useState(0) // Refresh key for Calendar
+  const router = useRouter()
+  const [professionalId, setProfessionalId] = useState(0)
+  const [professionalName, setProfessionalName] = useState('')
 
   useEffect(() => {
     const fetchUser = async () => {
       const {
-        data: { user },
-      } = await supabase.auth.getUser();
-      if (!user) {
-        router.push('/admin/login');
-      } else {
-        setUser(user);
-      }
-    };
+        data: { user }
+      } = await supabase.auth.getUser()
 
-    fetchUser();
-  }, [router]);
+      if (!user) {
+        router.push('/admin/login')
+      } else {
+        setUser(user)
+        console.log(user.id)
+        setUID(user.id) // Set the UID properly
+
+        await retrieveProfessionalId(user.email)
+      }
+    }
+
+    fetchUser()
+  }, [router])
+
+  console.log('UID ', uid)
+   /**
+   * Retrieves the professional ID from the database based on the logged-in user's email.
+   */
+
+  const retrieveProfessionalId = async (email) => {
+    try {
+      const { data, error } = await supabase
+        .from('professional')
+        .select('professional_id','name')
+        .eq('professional_email', email)
+        .single() // Expecting only one result
+
+      if (error) {
+        throw error
+      }
+
+      if (data) {
+        setProfessionalId(data.professional_id)
+        setProfessionalName(data.name)
+        console.log(professionalName)
+      }
+    } catch (error) {
+      console.error('Error retrieving professional ID:', error.message)
+    }
+  }
+
+  console.log("ID:",professionalId)
 
   if (!user) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-500 to-purple-600">
-        <p className="text-white text-lg">Loading...</p>
+      <div className='min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-500 to-purple-600'>
+        <p className='text-white text-lg'>Loading...</p>
       </div>
-    );
+    )
   }
 
   const addSchedule = async (professional_id, date, slot, userId, orderId) => {
@@ -42,73 +79,73 @@ export default function Dashboard() {
       const response = await fetch('/api/addSchedule', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify({
           professional_id: professional_id,
           date: date,
           slot: slot,
           session_with: userId,
-          order_id: orderId,
-        }),
-      });
+          order_id: orderId
+        })
+      })
 
       if (!response.ok) {
-        const errorDetails = await response.text();
-        throw new Error(`Network response was not ok: ${errorDetails}`);
+        const errorDetails = await response.text()
+        throw new Error(`Network response was not ok: ${errorDetails}`)
       }
 
-      const data = await response.json();
-      return data.orderId;
+      const data = await response.json()
+      return data.orderId
     } catch (error) {
-      console.error('There was a problem with your fetch operation:', error);
-      throw error;
+      console.error('There was a problem with your fetch operation:', error)
+      throw error
     }
-  };
+  }
 
   const handleBlocking = async () => {
     if (!selectedSlot) {
-      setMessage('Please select a time slot first.');
-      return;
+      setMessage('Please select a time slot first.')
+      return
     }
 
-    setIsLoading(true);
-    setMessage('');
+    setIsLoading(true)
+    setMessage('')
 
     try {
       const blocking = await addSchedule(
-        '1', // Replace with dynamic professional_id if needed
+        professionalId, // Replace with dynamic professional_id if needed
         selectedSlot.slice(0, 10), // Extract date (YYYY-MM-DD)
         selectedSlot.slice(11), // Extract time (HH:MM)
         'c25ac770-ec7c-4d1f-91b3-40e79a371803', // Replace with user_id if needed
         'BLOCK' // Replace with orderId if needed
-      );
+      )
 
-      setMessage('Time slot blocked successfully!');
-      setSelectedSlot(''); // Clear the selected slot after successful blocking
-      setRefreshKey((prevKey) => prevKey + 1); // Increment refresh key to re-render Calendar
+      setMessage('Time slot blocked successfully!')
+      setSelectedSlot('') // Clear the selected slot after successful blocking
+      setRefreshKey(prevKey => prevKey + 1) // Increment refresh key to re-render Calendar
     } catch (error) {
-      setMessage('Failed to block time slot. Please try again.');
-      console.error(error);
+      setMessage('Failed to block time slot. Please try again.')
+      console.error(error)
     } finally {
-      setIsLoading(false);
+      setIsLoading(false)
     }
-  };
+  }
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-blue-500 to-purple-600">
-      <nav className="bg-white shadow-lg">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="text-xl font-bold text-gray-800">Dashboard</div>
-            <div className="flex items-center space-x-4">
-              <span className="text-gray-800">Welcome, {user.email}</span>
+    <div className='min-h-screen bg-gradient-to-r from-blue-500 to-purple-600'>
+      <nav className='bg-white shadow-lg'>
+        <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
+          <div className='flex justify-between items-center h-16'>
+            <div className='text-xl font-bold text-gray-800'>Dashboard</div>
+            <div className='flex items-center space-x-4'>
+              <span className='text-gray-800'>Welcome, {user.email}</span>
               <button
                 onClick={async () => {
-                  await supabase.auth.signOut();
-                  router.push('/admin/login');
+                  await supabase.auth.signOut()
+                  router.push('/admin/login')
                 }}
-                className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+                className='bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2'
               >
                 Logout
               </button>
@@ -117,28 +154,26 @@ export default function Dashboard() {
         </div>
       </nav>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="bg-white p-8 rounded-lg shadow-lg">
-          <h1 className="text-3xl font-bold text-gray-800 mb-6">
+      <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8'>
+        <div className='bg-white p-8 rounded-lg shadow-lg'>
+          <h1 className='text-3xl font-bold text-gray-800 mb-6'>
             Dashboard Overview
           </h1>
-          
+
           <h2>My Schedule</h2>
-          <Bookings
-          id="1"
-          />    
+          <Bookings id={professionalId} />
           <div>
             {/* Pass refreshKey as a key to force re-render */}
             <Calendar
               key={refreshKey} // Force re-render when refreshKey changes
-              id="1"
-              name="Issac Paul"
+              id={professionalId}
+              name={professionalName}
               selectedSlot={selectedSlot}
               onChange={setSelectedSlot}
             />
           </div>
 
-          <div className="mt-6">
+          <div className='mt-6'>
             <button
               onClick={handleBlocking}
               disabled={!selectedSlot || isLoading} // Disable if no slot is selected or loading
@@ -166,5 +201,5 @@ export default function Dashboard() {
         </div>
       </div>
     </div>
-  );
+  )
 }

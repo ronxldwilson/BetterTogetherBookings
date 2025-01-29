@@ -111,7 +111,7 @@ const Calendar = ({ id, name, selectedSlot, onChange }) => {
   return (
     <div className="p-6 max-w-4xl mx-auto bg-white rounded-lg shadow-md">
       <h2 className="text-2xl font-bold text-center mb-6">
-        Available Slots for {name || "Therapist"}
+        Available Slots for {name || "Professional"}
       </h2>
 
       <div className="flex justify-between items-center mb-6">
