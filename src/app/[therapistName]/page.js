@@ -464,12 +464,12 @@ function leftSection (therapist) {
   return (
     <>
       <div className='lg:w-2/3 space-y-6'>
-        <button
+        {/* <button
           onClick={() => router.back()}
           className='text-blue-500 underline text-sm'
         >
           Back
-        </button>
+        </button> */}
         <div className='flex items-center space-x-4'>
           <img
             src={therapist.profileImage}
