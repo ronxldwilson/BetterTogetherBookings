@@ -23,7 +23,7 @@ const TherapistCard = ({
   };
 
   return (
-    <div className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 p-6 flex flex-col md:flex-row items-center md:items-start max-w-2xl mx-auto space-y-4 md:space-y-0 md:space-x-6">
+    <div className="bg-white rounded-xl shadow-lg hover:shadow-lg transition-shadow duration-300 p-6 flex flex-col md:flex-row items-center md:items-start max-w-2xl mx-auto space-y-4 md:space-y-0 md:space-x-6">
       {/* Profile Picture */}
       <img
         src={profileImage}

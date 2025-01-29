@@ -23,19 +23,19 @@ export default function Home () {
         <HeaderSection />
 
         {/* Main Content */}
-        <div className='px-4 py-6 max-w-4xl mx-auto'>
-          <h1 className='text-md md:text-3xl font-bold text-gray-800 mb-4 text-center'>
-            Find the Right Professional for Your Needs with Better Together
+        <div className='px-4 py-6 max-w-3xl mx-auto'>
+          <h1 className='text-md md:text-2xl font-bold text-gray-800 mb-4 text-center'>
+            Find the right professional for your needs with better together
           </h1>
-          <h2 className='text-sm md:text-xl text-gray-600 text-center mb-8'>
+          <h2 className='text-sm md:text-lg font-medium text-gray-600 text-center mb-8'>
             Connect with certified therapists, fitness coaches, psychiatric care
             specialists, and nutritionists. Book personalized sessions tailored
-            to your goals and start your journey to a healthier, happier you.
+            to your goals and start your journey today.
           </h2>
 
           {/* Pill Filters */}
           <div className='flex flex-wrap gap-2 justify-center mb-8'>
-            {['Therapy', 'Fitness', 'Psychiatric Care', 'Nutritionist'].map(
+            {['Therapy', 'Fitness', 'Psychiatric Care', 'Nutrition'].map(
               category => (
                 <button
                   key={category}
@@ -53,7 +53,7 @@ export default function Home () {
           </div>
 
           {/* Therapist Cards in a Single Column */}
-          <div className='flex flex-col gap-6'>
+          <div className=' flex flex-col gap-6'>
             {filteredProfiles.map(profile => (
               <TherapistCard
                 key={profile.id}
