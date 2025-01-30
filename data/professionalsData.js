@@ -7,10 +7,7 @@ const profileData = [
     category:"Therapy",
     experience: 'Therapist · 5+ Years of Experience',
     languages: 'Fluent in English and Malayalam',
-    description: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
-molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
-numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
-optio, eaque rerum! Provident similique accusantium nemo autem. 
+    description: `Hi, this is Issac Paul. I’m here to guide you through life’s challenges with therapy that fosters healing, self-discovery, and personal growth, helping you build a stronger, healthier mindset.
 <br><br>
 Veritatis obcaecati tenetur iure eius earum ut molestias architecto voluptate aliquam
 nihil, eveniet aliquid culpa officia aut! Impedit sit sunt quaerat, odit,
@@ -19,7 +16,7 @@ quia. Quo neque error repudiandae fuga? Ipsa laudantium molestias eos
 sapiente officiis modi at sunt excepturi expedita sint? Sed quibusdam
 recusandae alias error harum maxime adipisci amet laborum. Perspiciatis 
 minima nesciunt dolorem! 
-<br><br>
+
 Officiis iure rerum voluptates a cumque velit 
 quibusdam sed amet tempora. Sit laborum ab, eius fugit doloribus tenetur 
 fugiat, temporibus enim commodi iusto libero magni deleniti quod quam 
@@ -35,8 +32,8 @@ quasi aliquam eligendi, placeat qui corporis!`,
       'MSc Counselling Psychology',
       'BA in Psychology, Sociology and Literature'
     ],
-    individualPrice: 1000,
-    couplesPrice: 4000,
+    individualPrice: 2000,
+    couplesPrice: 3000,
     profileImage: '/images/therapist/Issac.jpg',
     rating: 5,
     email: 'queries.bettertogether@gmail.com',
@@ -62,7 +59,7 @@ quasi aliquam eligendi, placeat qui corporis!`,
   },{
     id: 2,
     slug: 'therapist-2',
-    name: 'Therapist 2',
+    name: 'John Doe',
     verified: true,
     category:"Therapy",
     experience: 'Therapist · 5+ Years of Experience',

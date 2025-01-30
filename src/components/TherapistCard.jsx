@@ -2,6 +2,7 @@
 
 import React from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 const TherapistCard = ({
   slug,
@@ -37,9 +38,13 @@ const TherapistCard = ({
         <div className="flex items-center mb-3">
           <h2 className="font-semibold text-2xl text-gray-800 mr-2">{name}</h2>
           {verified && (
-            <span className="text-green-500 text-lg" title="Verified">
-              ✔
-            </span>
+            <Image
+              src="/verified.png" // Make sure this image is inside the public folder
+              alt="Verified"
+              width={24}
+              height={24}
+              title="Verified"
+            />
           )}
         </div>
 
