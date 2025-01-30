@@ -15,12 +15,11 @@ export default function NotFound() {
         transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
         className="absolute top-20 right-10 text-6xl"
       >
-        🧑‍🚀
       </motion.div>
 
       {/* 404 Text */}
-      <h1 className="text-5xl font-bold mb-4">Lost in Space</h1>
-      <p className="text-lg mb-8">Oops! This page drifted into the void.</p>
+      <h1 className="text-5xl font-bold mb-4">Something is wrong</h1>
+      <p className="text-lg mb-8">Oops! This page doesn't exist.</p>
 
       {/* Rocket Button */}
       <motion.div

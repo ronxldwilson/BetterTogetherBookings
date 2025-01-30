@@ -203,7 +203,7 @@ function RightSection ({ therapist }) {
   const [phone, setPhone] = useState('')
   const [therapistID, setTherapistID] = useState('')
   const [message, setMessage] = useState('')
-
+  const router = useRouter();
   useEffect(() => {
     if (therapist?.id) {
       setTherapistID(therapist.id)
@@ -258,7 +258,7 @@ function RightSection ({ therapist }) {
 
           const res = await result.json()
           if (res.isOk) {
-            setMessage('Payment succeeded!')
+            setMessage('Payment Successfully Completed!')
             // console.log(res)
             // Redirect or take further action
             try {
@@ -284,7 +284,26 @@ function RightSection ({ therapist }) {
                 therapist.email,
                 orderId
               ) //to, date, slot, therapistName, therapistEmail, orderId
-              // console.log('SCHEDULE DONE')
+
+              const responseBody = {
+                paymentId: response.razorpay_payment_id,
+                orderId: orderId,
+                therapistName: therapist.name,
+                sessionDate: selectedSlot.slice(0, 10),
+                sessionTime: selectedSlot.slice(11),
+                sessionMode: sessionMode,
+                sessionType: typeOfSession,
+                userName: name,
+                userEmail: email,
+                userPhone: phone,
+              };
+              
+              // Store in sessionStorage or localStorage
+              sessionStorage.setItem("sessionDetails", JSON.stringify(responseBody));
+              
+              // Navigate to confirmation page
+              router.push("/confirmation");
+              
             } catch (error) {
               console.error('Error adding user:', error)
             }
