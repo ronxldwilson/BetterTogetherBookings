@@ -9,15 +9,23 @@ import faqData from '../../data/faqData'
 
 export default function Home () {
   const [selectedCategory, setSelectedCategory] = useState('Therapy')
+  const [searchQuery, setSearchQuery] = useState('')
 
-  // Filter profileData based on the selected category
-  const filteredProfiles = profileData.filter(
-    profile => profile.category === selectedCategory
-  )
+  // Filter profileData based on the selected category and search query
+  const filteredProfiles = profileData.filter(profile => {
+    const matchesCategory = profile.category === selectedCategory
+
+    // Combine search logic for name, location, and other fields
+    const matchesSearchQuery =
+      profile.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      profile.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      profile.description.toLowerCase().includes(searchQuery.toLowerCase()) 
+
+    return matchesCategory && matchesSearchQuery
+  })
 
   return (
     <>
-      
       <div>
         {/* Header Section */}
         <HeaderSection />
@@ -32,6 +40,17 @@ export default function Home () {
             specialists, and nutritionists. Book personalized sessions tailored
             to your goals and start your journey today.
           </h2>
+
+          {/* Combined Search Input */}
+          <div className='flex justify-center mb-8'>
+            <input
+              type='text'
+              placeholder='Search by name, location, or other details...'
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className='px-4 py-2 rounded-full text-sm font-medium bg-gray-200 text-gray-700 hover:bg-gray-300 w-full max-w-md'
+            />
+          </div>
 
           {/* Pill Filters */}
           <div className='flex flex-wrap gap-2 justify-center mb-8'>
@@ -53,7 +72,7 @@ export default function Home () {
           </div>
 
           {/* Therapist Cards in a Single Column */}
-          <div className=' flex flex-col gap-6'>
+          <div className='flex flex-col gap-6'>
             {filteredProfiles.map(profile => (
               <TherapistCard
                 key={profile.id}
@@ -66,6 +85,7 @@ export default function Home () {
                 individualPrice={profile.individualPrice}
                 couplesPrice={profile.couplesPrice}
                 profileImage={profile.profileImage}
+                location={profile.location} // Assuming location is part of the profile data
               />
             ))}
           </div>

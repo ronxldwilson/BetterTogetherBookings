@@ -7,6 +7,9 @@ const profileData = [
     category:"Therapy",
     experience: 'Therapist · 5+ Years of Experience',
     languages: 'Fluent in English and Malayalam',
+    groupSessions: true,//
+    offlineSessions: false,
+    address:'John Doe, 456 Elm Street, Suite 3, Los Angeles, CA 90001, Karnataka',
     description: `Hi, this is Issac Paul. I’m here to guide you through life’s challenges with therapy that fosters healing, self-discovery, and personal growth, helping you build a stronger, healthier mindset.
 <br><br>
 Veritatis obcaecati tenetur iure eius earum ut molestias architecto voluptate aliquam
@@ -53,7 +56,7 @@ quasi aliquam eligendi, placeat qui corporis!`,
       {
         name: 'Alice Johnson',
         testimonial:
-          'A truly wonderful experience. Issac Paul listens patiently and gives practical advice that I can apply to everyday life. Highly recommended for anyone seeking a supportive therapist.'
+        'A truly wonderful experience. Issac Paul listens patiently and gives practical advice that I can apply to everyday life. Highly recommended for anyone seeking a supportive therapist.'
       }
     ]
   },{

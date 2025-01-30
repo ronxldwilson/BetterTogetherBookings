@@ -1,5 +1,5 @@
 import { Geist, Geist_Mono } from 'next/font/google'
-import { Analytics } from "@vercel/analytics/react"
+import { Analytics } from '@vercel/analytics/react'
 import './globals.css'
 
 const geistSans = Geist({
@@ -21,7 +21,6 @@ export const metadata = {
 export default function RootLayout ({ children }) {
   return (
     <html lang='en'>
-      <Analytics/>
       <title>
         Better Together - Book Sessions with Certified Professionals
       </title>
@@ -33,6 +32,7 @@ export default function RootLayout ({ children }) {
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {children}
+        <Analytics />
       </body>
     </html>
   )
