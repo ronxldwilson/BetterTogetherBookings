@@ -19,7 +19,7 @@ export default function Home () {
     const matchesSearchQuery =
       profile.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       profile.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      profile.description.toLowerCase().includes(searchQuery.toLowerCase()) 
+      profile.description.toLowerCase().includes(searchQuery.toLowerCase())
 
     return matchesCategory && matchesSearchQuery
   })
@@ -35,7 +35,7 @@ export default function Home () {
           <h1 className='text-md md:text-2xl font-bold text-gray-800 mb-4 text-center'>
             Find the right professional for your needs with better together
           </h1>
-          <h2 className='text-sm md:text-lg font-medium text-gray-600 text-center mb-8'>
+          <h2 className='text-sm md:text-md font-medium text-gray-600 text-center mb-8'>
             Connect with certified therapists, fitness coaches, psychiatric care
             specialists, and nutritionists. Book personalized sessions tailored
             to your goals and start your journey today.
@@ -47,7 +47,7 @@ export default function Home () {
               type='text'
               placeholder='Search by name, location, or other details...'
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={e => setSearchQuery(e.target.value)}
               className='px-4 py-2 rounded-full text-sm font-medium bg-gray-200 text-gray-700 hover:bg-gray-300 w-full max-w-md'
             />
           </div>
@@ -95,7 +95,9 @@ export default function Home () {
           <h2 className='text-2xl font-bold text-gray-800 mb-6 text-center'>
             Frequently Asked Questions
           </h2>
-          <Accordion faqs={faqData} />
+          <div className='py-5'>
+            <Accordion faqs={faqData} />
+          </div>
         </div>
 
         {/* Footer Section */}

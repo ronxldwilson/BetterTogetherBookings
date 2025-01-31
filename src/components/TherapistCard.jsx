@@ -36,7 +36,7 @@ const TherapistCard = ({
       <div className="flex-grow">
         {/* Header */}
         <div className="flex items-center mb-3">
-          <h2 className="font-semibold text-2xl text-gray-800 mr-2">{name}</h2>
+          <h2 className="font-semibold text-xl text-gray-800 mr-2">{name}</h2>
           {verified && (
             <Image
               src="/verified.png" // Make sure this image is inside the public folder
@@ -50,11 +50,11 @@ const TherapistCard = ({
 
         {/* Experience and Languages */}
         <div className="flex flex-col space-y-1 mb-4">
-          <p className="text-sm text-gray-600">
-            <span className="font-medium">Experience:</span> {experience}
+          <p className="text-xs text-gray-600">
+            <span className="font-medium text-xs">Experience:</span> {experience}
           </p>
-          <p className="text-sm text-gray-600">
-            <span className="font-medium">Languages:</span> {languages}
+          <p className="text-xs text-gray-600">
+            <span className="font-medium text-xs">Languages:</span> {languages}
           </p>
         </div>
 
