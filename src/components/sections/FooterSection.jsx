@@ -17,10 +17,10 @@ const FooterSection = () => {
           <div className="w-full md:w-1/4 mb-8 md:mb-0">
             <h3 className="text-sm font-semibold text-white mb-4">Quick Links</h3>
             <ul className="space-y-2">
-              <li className="text-sm"><Link href="/about" className="hover:text-white">About Us</Link></li>
-              <li className="text-sm"><Link href="/services" className="hover:text-white">Our Services</Link></li>
-              <li className="text-sm"><Link href="/blog" className="hover:text-white">Blog</Link></li>
-              <li className="text-sm"><Link href="/contact" className="hover:text-white">Contact Us</Link></li>
+              <li className="text-sm"><Link href="https://www.thebettertogether.in/about" className="hover:text-white">About Us</Link></li>
+              <li className="text-sm"><Link href="https://www.thebettertogether.in/services" className="hover:text-white">Our Services</Link></li>
+              <li className="text-sm"><Link href="https://www.thebettertogether.in/blog" className="hover:text-white">Blog</Link></li>
+              <li className="text-sm"><Link href="https://www.thebettertogether.in/contact" className="hover:text-white">Contact Us</Link></li>
             </ul>
           </div>
 
@@ -28,9 +28,9 @@ const FooterSection = () => {
           <div className="w-full md:w-1/4 mb-8 md:mb-0">
             <h3 className="text-sm font-semibold text-white mb-4">Legal</h3>
             <ul className="space-y-2">
-              <li className="text-sm"><Link href="/terms-&-conditions" className="hover:text-white">Terms & Conditions (Coming Soon)</Link></li>
-              <li className="text-sm"><Link href="/privacy-policy" className="hover:text-white">Privacy Policy (Coming Soon)</Link></li>
-              <li className="text-sm"><Link href="/disclaimer" className="hover:text-white">Disclaimer (Coming Soon)</Link></li>
+              <li className="text-sm"><Link href="/terms-&-conditions" className="hover:text-white">Terms & Conditions </Link></li>
+              <li className="text-sm"><Link href="/privacy-policy" className="hover:text-white">Privacy Policy </Link></li>
+              <li className="text-sm"><Link href="/disclaimer" className="hover:text-white">Disclaimer </Link></li>
             </ul>
           </div>
 

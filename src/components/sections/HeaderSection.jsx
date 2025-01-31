@@ -36,25 +36,25 @@ const HeaderSection = () => {
           <Link href="/" className="hover:text-gray-400 py-4">
             Home
           </Link>
-          <Link href="/services/BAY" className="hover:text-gray-400 py-4">
+          <Link href="https://www.thebettertogether.in/BAY" className="hover:text-gray-400 py-4">
             BAY
           </Link>
-          <Link href="/services" className="hover:text-gray-400 py-4">
+          <Link href="https://www.thebettertogether.in/services" className="hover:text-gray-400 py-4">
             Services
           </Link>
-          <Link href="/services/events" className="hover:text-gray-400 py-4">
+          <Link href="https://www.thebettertogether.in/services/events" className="hover:text-gray-400 py-4">
             Events
           </Link>
-          <Link href="/blog" className="hover:text-gray-400 py-4">
+          <Link href="https://www.thebettertogether.in/blog" className="hover:text-gray-400 py-4">
             Blog
           </Link>
-          <Link href="/about" className="hover:text-gray-400 py-4">
+          <Link href="https://www.thebettertogether.in/about" className="hover:text-gray-400 py-4">
             About Us
           </Link>
-          <Link href="/contact" className="hover:text-gray-400 py-4">
+          <Link href="https://www.thebettertogether.in/contact" className="hover:text-gray-400 py-4">
             Contact Us
           </Link>
-          <Link href="/join-community" className="hover:text-gray-400">
+          <Link href="https://www.thebettertogether.in/join-community" className="hover:text-gray-400">
             <button className="p-4">Join Community</button>
           </Link>
         </nav>
@@ -108,29 +108,29 @@ const HeaderSection = () => {
           <Link href="/" className="block hover:text-gray-400 py-2">
             Home
           </Link>
-          <Link href="/about" className="block hover:text-gray-400 py-2">
+          <Link href="https://www.thebettertogether.in/about" className="block hover:text-gray-400 py-2">
             About Us
           </Link>
-          <Link href="/services/BAY" className="block hover:text-gray-400 py-2">
+          <Link href="https://www.thebettertogether.in/BAY" className="block hover:text-gray-400 py-2">
             BAY
           </Link>
-          <Link href="/services" className="block hover:text-gray-400 py-2">
+          <Link href="https://www.thebettertogether.in/services" className="block hover:text-gray-400 py-2">
             Services
           </Link>
-          <Link href="/services/events" className="block hover:text-gray-400 py-2">
+          <Link href="https://www.thebettertogether.in/services/events" className="block hover:text-gray-400 py-2">
             Events
           </Link>
-          <Link href="/blog" className="block hover:text-gray-400 py-2">
+          <Link href="https://www.thebettertogether.in/blog" className="block hover:text-gray-400 py-2">
             Blog
           </Link>
-          <Link href="/contact" className="block hover:text-gray-400 py-2">
+          <Link href="https://www.thebettertogether.in/contact" className="block hover:text-gray-400 py-2">
             Contact
           </Link>
 
           <div className="flex justify-between ">
             <div className="bg-custom-red text-white rounded-lg my-[3px] px-1">
               <Link
-                href="/join-community"
+                href="https://www.thebettertogether.in/join-community"
                 className="block  "
               >
                 Join Community
