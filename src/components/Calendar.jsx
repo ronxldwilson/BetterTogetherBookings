@@ -21,6 +21,11 @@ const Calendar = ({ id, name, selectedSlot, onChange, noOfSlots }) => {
   ];
   const slotsPerPage = noOfSlots;
 
+  const getISTTime = () => {
+    const now = new Date();
+    return new Date(now.toLocaleString("en-US", { timeZone: "Asia/Kolkata" }));
+  };
+
   useEffect(() => {
     const fetchSchedule = async () => {
       try {
@@ -69,9 +74,38 @@ const Calendar = ({ id, name, selectedSlot, onChange, noOfSlots }) => {
   const upcomingDates = getNextNDates(30);
 
   const groupedSlots = upcomingDates.reduce((acc, date) => {
-    acc[date] = new Set(allSlots);
+    let availableSlots = new Set(allSlots);
+
+    // If the date is today, remove past slots
+    const today = getISTTime();
+    const todayStr = today.toISOString().split("T")[0];
+
+    if (date === todayStr) {
+      const currentHour = today.getHours();
+      const currentMinutes = today.getMinutes();
+
+      availableSlots = new Set(
+        allSlots.filter((slot) => {
+          const [slotHour, slotMinutes] = slot
+            .replace(" AM", "")
+            .replace(" PM", "")
+            .split(":")
+            .map(Number);
+
+          const isPM = slot.includes("PM");
+          const adjustedHour = isPM && slotHour !== 12 ? slotHour + 12 : slotHour;
+
+          return (
+            adjustedHour > currentHour || (adjustedHour === currentHour && slotMinutes > currentMinutes)
+          );
+        })
+      );
+    }
+
+    acc[date] = availableSlots;
     return acc;
   }, {});
+
 
   therapist.forEach(({ date, slot }) => {
     if (groupedSlots[date]) {
@@ -110,7 +144,7 @@ const Calendar = ({ id, name, selectedSlot, onChange, noOfSlots }) => {
 
   return (
     <div className="p-6 max-w-4xl mx-auto bg-white rounded-lg shadow-md">
-      <h2 className="text-2xl font-bold text-center mb-6">
+      <h2 className="text-lg font-medium text-center mb-6">
         Available Slots for {name || "Professional"}
       </h2>
 
