@@ -358,23 +358,25 @@ function RightSection ({ therapist }) {
                 Online
               </label>
             </div>
-            <div className='flex items-center'>
-              <input
-                type='radio'
-                id='mode-offline'
-                name='mode'
-                value='offline'
-                className='w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500'
-                checked={sessionMode === 'offline'}
-                onChange={e => setSessionMode(e.target.value)}
-              />
-              <label
-                htmlFor='mode-offline'
-                className='ml-2 text-sm font-medium text-gray-700'
-              >
-                Offline
-              </label>
-            </div>
+            {therapist.offlineSession && (
+              <div className='flex items-center'>
+                <input
+                  type='radio'
+                  id='mode-offline'
+                  name='mode'
+                  value='offline'
+                  className='w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500'
+                  checked={sessionMode === 'offline'}
+                  onChange={e => setSessionMode(e.target.value)}
+                />
+                <label
+                  htmlFor='mode-offline'
+                  className='ml-2 text-sm font-medium text-gray-700'
+                >
+                  Offline
+                </label>
+              </div>
+            )}
           </div>
         </div>
 
@@ -383,6 +385,7 @@ function RightSection ({ therapist }) {
           <label className='block text-sm font-bold mb-2'>
             Type of Session
           </label>
+
           <div className='space-y-2'>
             <div className='flex items-center'>
               <input
@@ -401,23 +404,26 @@ function RightSection ({ therapist }) {
                 Individual - ₹{therapist.individualPrice}
               </label>
             </div>
-            <div className='flex items-center'>
-              <input
-                type='radio'
-                id='sessionType-couples'
-                name='sessionType'
-                value='couples'
-                className='w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500'
-                checked={typeOfSession === 'couples'}
-                onChange={e => setTypeOfSession(e.target.value)}
-              />
-              <label
-                htmlFor='sessionType-couples'
-                className='ml-2 text-sm font-medium text-gray-700'
-              >
-                Couples - ₹{therapist.couplesPrice}
-              </label>
-            </div>
+
+            {therapist.groupSessions &&
+              <div className='flex items-center'>
+                <input
+                  type='radio'
+                  id='sessionType-couples'
+                  name='sessionType'
+                  value='couples'
+                  className='w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500'
+                  checked={typeOfSession === 'couples'}
+                  onChange={e => setTypeOfSession(e.target.value)}
+                />
+                <label
+                  htmlFor='sessionType-couples'
+                  className='ml-2 text-sm font-medium text-gray-700'
+                >
+                  Couples - ₹{therapist.couplesPrice}
+                </label>
+              </div>
+            }
           </div>
         </div>
 
