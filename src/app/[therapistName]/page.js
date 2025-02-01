@@ -203,7 +203,7 @@ function RightSection ({ therapist }) {
   const [phone, setPhone] = useState('')
   const [therapistID, setTherapistID] = useState('')
   const [message, setMessage] = useState('')
-  const router = useRouter();
+  const router = useRouter()
   useEffect(() => {
     if (therapist?.id) {
       setTherapistID(therapist.id)
@@ -295,15 +295,17 @@ function RightSection ({ therapist }) {
                 sessionType: typeOfSession,
                 userName: name,
                 userEmail: email,
-                userPhone: phone,
-              };
-              
+                userPhone: phone
+              }
+
               // Store in sessionStorage or localStorage
-              sessionStorage.setItem("sessionDetails", JSON.stringify(responseBody));
-              
+              sessionStorage.setItem(
+                'sessionDetails',
+                JSON.stringify(responseBody)
+              )
+
               // Navigate to confirmation page
-              router.push("/confirmation");
-              
+              router.push('/confirmation')
             } catch (error) {
               console.error('Error adding user:', error)
             }
@@ -419,19 +421,6 @@ function RightSection ({ therapist }) {
           </div>
         </div>
 
-        {/* Date & Time */}
-        <div>
-          <label htmlFor='dateTime' className='block text-sm font-bold'>
-            Date & Time
-          </label>
-          <Calendar
-            id={therapist.id}
-            name={therapist.name}
-            selectedSlot={selectedSlot}
-            onChange={setSelectedSlot}
-          />
-        </div>
-
         {/* Contact Details */}
         <div>
           <label htmlFor='contactDetails' className='block text-sm font-bold'>
@@ -463,6 +452,25 @@ function RightSection ({ therapist }) {
               onChange={e => setPhone(e.target.value)}
             />
           </div>
+        </div>
+
+        {/* Date & Time */}
+        <div>
+          <label htmlFor='dateTime' className='block text-sm font-bold'>
+            Date & Time
+          </label>
+          <Calendar
+            id={therapist.id}
+            name={therapist.name}
+            selectedSlot={selectedSlot}
+            onChange={setSelectedSlot}
+            noOfSlots={
+              typeof window !== 'undefined' &&
+              window.matchMedia('(min-width: 768px)').matches
+                ? 4
+                : 2
+            }
+          />
         </div>
 
         {/* Submit Button */}

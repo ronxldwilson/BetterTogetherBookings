@@ -28,6 +28,11 @@ export const faqData = [
     question: 'Is my personal information secure?',
     answer:
       'Your privacy is our priority. All personal information is thoroughly secured and made available to your practioner.'
+  },
+  {
+    question: 'How do I join Better Together as a Professional?',
+    answer:
+      'If you are interested in Joining Better Together as a professional, We urge you to write to us on queries.bettertogether@gmail.com . We will reach out to you soon if your profile is suitable to be listed on Better Together'
   }
 ]
 

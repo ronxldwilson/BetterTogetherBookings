@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from "../lib/supabase";
 
-const Calendar = ({ id, name, selectedSlot, onChange }) => {
+const Calendar = ({ id, name, selectedSlot, onChange, noOfSlots }) => {
   const [therapist, setTherapist] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -19,7 +19,7 @@ const Calendar = ({ id, name, selectedSlot, onChange }) => {
     "05:00 PM",
     "06:00 PM",
   ];
-  const slotsPerPage = 4;
+  const slotsPerPage = noOfSlots;
 
   useEffect(() => {
     const fetchSchedule = async () => {
