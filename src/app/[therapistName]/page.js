@@ -405,7 +405,7 @@ function RightSection ({ therapist }) {
               </label>
             </div>
 
-            {therapist.groupSessions &&
+            {therapist.groupSessions && (
               <div className='flex items-center'>
                 <input
                   type='radio'
@@ -423,7 +423,7 @@ function RightSection ({ therapist }) {
                   Couples - ₹{therapist.couplesPrice}
                 </label>
               </div>
-            }
+            )}
           </div>
         </div>
 
@@ -532,7 +532,9 @@ function leftSection (therapist) {
         <div>
           <h3 className='text-lg font-bold'>Fees for {therapist.name}:</h3>
           <p>Individual: ₹{therapist.individualPrice}</p>
-          <p>Couples: ₹{therapist.couplesPrice}</p>
+          {therapist.groupSessions && (
+            <p>Group Sessions: ₹{therapist.groupPrice}</p>
+          )}
         </div>
 
         {/* Location */}
