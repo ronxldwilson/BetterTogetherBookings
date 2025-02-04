@@ -194,21 +194,59 @@ Better Together Wellness Team`,
         method: 'REQUEST'
       }
     }
+    const adminMailContent = {
+      from: EMAIL_USER,
+      to: EMAIL_USER,
+      subject: `[TESTING] New Session Booked for ${therapistName}`,
+      text: `Hello Team,
+    
+    A new session has been booked with ${therapistName}. Here are the session details:
+    
+    - Date: ${date}
+    - Time Slot: ${slot}
+    - Booking ID: ${orderId}
+    
+    Best regards,  
+    Better Together Wellness Team
+      `,
+      html: `
+        <p>Hello Team,</p>
+        <p>A new session has been booked with ${therapistName}. Here are the session details:</p>
+        <p>
+          <strong>Date:</strong> ${date}<br>
+          <strong>Time Slot:</strong> ${slot}<br>
+          <strong>Booking ID:</strong> ${orderId}
+        </p>
+
+        <p>Best regards,<br>Better Together Wellness Team</p>
+      `,
+    };
+    
 
     // Send both emails
     await transporter.sendMail(userEmailContent)
+    await transporter.sendMail(therapistEmailContent)
+    await transporter.sendMail(adminMailContent)
+
     email_logs(
       userEmailContent.to,
       userEmailContent.from,
       userEmailContent.subject,
       userEmailContent.text
     )
-    await transporter.sendMail(therapistEmailContent)
+    
     email_logs(
       therapistEmailContent.to,
       therapistEmailContent.from,
       therapistEmailContent.subject,
       therapistEmailContent.text
+    )
+    
+    email_logs(
+      adminMailContent.to,
+      adminMailContent.from,
+      adminMailContent.subject,
+      adminMailContent.text
     )
 
     return new Response(JSON.stringify({ success: true }), {
