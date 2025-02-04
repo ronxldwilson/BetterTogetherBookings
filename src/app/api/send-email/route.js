@@ -10,7 +10,8 @@ export async function POST (request) {
     GOOGLE_CLIENT_SECRET,
     GOOGLE_REFRESH_TOKEN,
     EMAIL_USER,
-    EMAIL_PASS
+    EMAIL_PASS,
+    BASE_URL
   } = process.env
 
   // Configure OAuth2 Client
@@ -20,6 +21,34 @@ export async function POST (request) {
     'https://developers.google.com/oauthplayground' // Redirect URI
   )
   oAuth2Client.setCredentials({ refresh_token: GOOGLE_REFRESH_TOKEN })
+
+  const email_logs = async (to, from, subject, content) => {
+    try {
+      const response = await fetch(`${BASE_URL}/api/emailLog`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          to: to,
+          from: from,
+          subject: subject,
+          content: content
+        })
+      })
+
+      if (!response.ok) {
+        const errorDetails = await response.text() // Get additional error info from the server
+        throw new Error(`Network response was not ok: ${errorDetails}`)
+      }
+
+      const data = await response.json()
+      return data.userId // ### THIS NEEDS TO BE CHANGED
+    } catch (error) {
+      console.error('There was a problem with your fetch operation:', error)
+      throw error // Re-throwing to handle it elsewhere if needed
+    }
+  }
 
   try {
     // Authenticate Google Calendar API
@@ -168,9 +197,21 @@ Better Together Wellness Team`,
 
     // Send both emails
     await transporter.sendMail(userEmailContent)
+    email_logs(
+      userEmailContent.to,
+      userEmailContent.from,
+      userEmailContent.subject,
+      userEmailContent.text
+    )
     await transporter.sendMail(therapistEmailContent)
+    email_logs(
+      therapistEmailContent.to,
+      therapistEmailContent.from,
+      therapistEmailContent.subject,
+      therapistEmailContent.text
+    )
 
-    return new Response(JSON.stringify({ success: true}), {
+    return new Response(JSON.stringify({ success: true }), {
       status: 200
     })
   } catch (error) {
