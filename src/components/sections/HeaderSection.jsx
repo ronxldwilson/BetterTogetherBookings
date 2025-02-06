@@ -55,7 +55,7 @@ const HeaderSection = () => {
             Contact Us
           </Link>
           <Link href="https://www.thebettertogether.in/join-community" className="hover:text-gray-400">
-            <button className="p-4">Join Community</button>
+            <button className="p-4 bg-custom-red">Join Community</button>
           </Link>
         </nav>
 
@@ -63,7 +63,7 @@ const HeaderSection = () => {
         <div className="md:hidden ">
           <button
             onClick={toggleMenu}
-            className="focus:outline-none p-3"
+            className="focus:outline-none p-3 bg-custom-red text-white "
             aria-label="Toggle menu"
           >
             {isMenuOpen ? (

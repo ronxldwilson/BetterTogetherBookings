@@ -93,10 +93,10 @@ export default function Home () {
         </div>
         {/* FAQ Section */}
         <div className='mt-12'>
-          <h2 className='text-2xl font-bold text-gray-800 mb-6 text-center'>
+          <h2 className='text-lg font-bold text-gray-800 mb-6 text-center'>
             Frequently Asked Questions
           </h2>
-          <div className='py-5'>
+          <div className='py-5 px-5'>
             <Accordion faqs={faqData} />
           </div>
         </div>
