@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from "../lib/supabase";
 
-const Calendar = ({ id, name, selectedSlot, onChange, noOfSlots }) => {
+const Calendar = ({ key, id, name, selectedSlot, onChange, noOfSlots }) => {
+
   const [therapist, setTherapist] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);

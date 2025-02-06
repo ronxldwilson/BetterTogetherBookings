@@ -27,20 +27,13 @@ export default function Dashboard () {
         router.push('/admin/login')
       } else {
         setUser(user)
-        console.log(user.id)
-        setUID(user.id) // Set the UID properly
-
+        setUID(user.id) 
         await retrieveProfessionalId(user.email)
       }
     }
 
     fetchUser()
   }, [router])
-
-  console.log('UID ', uid)
-   /**
-   * Retrieves the professional ID from the database based on the logged-in user's email.
-   */
 
   const retrieveProfessionalId = async (email) => {
     try {
@@ -57,14 +50,11 @@ export default function Dashboard () {
       if (data) {
         setProfessionalId(data.professional_id)
         setProfessionalName(data.name)
-        console.log(professionalName)
       }
     } catch (error) {
       console.error('Error retrieving professional ID:', error.message)
     }
   }
-
-  console.log("ID:",professionalId)
 
   if (!user) {
     return (
@@ -166,10 +156,16 @@ export default function Dashboard () {
             {/* Pass refreshKey as a key to force re-render */}
             <Calendar
               key={refreshKey} // Force re-render when refreshKey changes
-              id={1}
+              id={professionalId}
               name={professionalName}
               selectedSlot={selectedSlot}
               onChange={setSelectedSlot}
+              noOfSlots={
+                typeof window !== 'undefined' &&
+                window.matchMedia('(min-width: 768px)').matches
+                  ? 4
+                  : 2
+              }
             />
           </div>
 
