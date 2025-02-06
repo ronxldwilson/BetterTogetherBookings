@@ -58,7 +58,9 @@ quasi aliquam eligendi, placeat qui corporis!`,
         testimonial:
         'A truly wonderful experience. Issac Paul listens patiently and gives practical advice that I can apply to everyday life. Highly recommended for anyone seeking a supportive therapist.'
       }
-    ]
+    ],
+    metaTags:'Bengaluru'
+
   },{
     id: 2,
     slug: 'therapist-2',
@@ -69,6 +71,7 @@ quasi aliquam eligendi, placeat qui corporis!`,
     languages: 'Fluent in English and Malayalam',
     groupSessions: true,
     offlineSessions: false,
+    address:'John Doe, 456 Elm Street, Suite 3, Los Angeles, CA 90001, Karnataka',
     description: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
 molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
 numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
@@ -120,7 +123,8 @@ quasi aliquam eligendi, placeat qui corporis!`,
         testimonial:
           'A truly wonderful experience. Issac Paul listens patiently and gives practical advice that I can apply to everyday life. Highly recommended for anyone seeking a supportive therapist.'
       }
-    ]
+    ],
+    metaTags:'Bengaluru'
   },{
     id: 3,
     slug: 'therapist-3',
@@ -131,6 +135,7 @@ quasi aliquam eligendi, placeat qui corporis!`,
     languages: 'Fluent in English and Malayalam',
     groupSessions: true,
     offlineSessions: false,
+    address:'John Doe, 456 Elm Street, Suite 3, Los Angeles, CA 90001, Karnataka',
     description: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
 molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
 numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
@@ -182,7 +187,8 @@ quasi aliquam eligendi, placeat qui corporis!`,
         testimonial:
           'A truly wonderful experience. Issac Paul listens patiently and gives practical advice that I can apply to everyday life. Highly recommended for anyone seeking a supportive therapist.'
       }
-    ]
+    ],
+    metaTags:'Bengaluru'
   },{
     id: 4,
     slug: 'fitness-1',
@@ -193,6 +199,7 @@ quasi aliquam eligendi, placeat qui corporis!`,
     languages: 'Fluent in English and Malayalam',
     groupSessions: true,
     offlineSessions: false,
+    address:'John Doe, 456 Elm Street, Suite 3, Los Angeles, CA 90001, Karnataka',
     description: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
 molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
 numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
@@ -244,7 +251,8 @@ quasi aliquam eligendi, placeat qui corporis!`,
         testimonial:
           'A truly wonderful experience. Issac Paul listens patiently and gives practical advice that I can apply to everyday life. Highly recommended for anyone seeking a supportive therapist.'
       }
-    ]
+    ],
+    metaTags:'Bengaluru'
   },{
     id: 5,
     slug: 'fitness-2',
@@ -255,6 +263,7 @@ quasi aliquam eligendi, placeat qui corporis!`,
     languages: 'Fluent in English and Malayalam',
     groupSessions: true,
     offlineSessions: false,
+    address:'John Doe, 456 Elm Street, Suite 3, Los Angeles, CA 90001, Karnataka',
     description: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
 molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
 numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
@@ -306,7 +315,8 @@ quasi aliquam eligendi, placeat qui corporis!`,
         testimonial:
           'A truly wonderful experience. Issac Paul listens patiently and gives practical advice that I can apply to everyday life. Highly recommended for anyone seeking a supportive therapist.'
       }
-    ]
+    ],
+    metaTags:'Bengaluru'
   },{
     id: 6,
     slug: 'fitness-3',
@@ -317,6 +327,7 @@ quasi aliquam eligendi, placeat qui corporis!`,
     languages: 'Fluent in English and Malayalam',
     groupSessions: false,
     offlineSessions: false,
+    address:'John Doe, 456 Elm Street, Suite 3, Los Angeles, CA 90001, Karnataka',
     description: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
 molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
 numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
@@ -368,7 +379,8 @@ quasi aliquam eligendi, placeat qui corporis!`,
         testimonial:
           'A truly wonderful experience. Issac Paul listens patiently and gives practical advice that I can apply to everyday life. Highly recommended for anyone seeking a supportive therapist.'
       }
-    ]
+    ],
+    metaTags:'Bengaluru'
   },{
     id: 7,
     slug: 'psychiatrist-1',
@@ -379,6 +391,7 @@ quasi aliquam eligendi, placeat qui corporis!`,
     languages: 'Fluent in English and Malayalam',
     groupSessions: false,
     offlineSessions: false,
+    address:'John Doe, 456 Elm Street, Suite 3, Los Angeles, CA 90001, Karnataka',
     description: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
 molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
 numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
@@ -430,7 +443,8 @@ quasi aliquam eligendi, placeat qui corporis!`,
         testimonial:
           'A truly wonderful experience. Issac Paul listens patiently and gives practical advice that I can apply to everyday life. Highly recommended for anyone seeking a supportive therapist.'
       }
-    ]
+    ],
+    metaTags:'Bengaluru'
   },{
     id: 8,
     slug: 'psychiatrist-2',
@@ -441,6 +455,7 @@ quasi aliquam eligendi, placeat qui corporis!`,
     languages: 'Fluent in English and Malayalam',
     groupSessions: false,
     offlineSessions: false,
+    address:'John Doe, 456 Elm Street, Suite 3, Los Angeles, CA 90001, Karnataka',
     description: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
 molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
 numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
@@ -492,7 +507,8 @@ quasi aliquam eligendi, placeat qui corporis!`,
         testimonial:
           'A truly wonderful experience. Issac Paul listens patiently and gives practical advice that I can apply to everyday life. Highly recommended for anyone seeking a supportive therapist.'
       }
-    ]
+    ],
+    metaTags:'Bengaluru'
   },{
     id: 9,
     slug: 'psychiatrist-3',
@@ -503,6 +519,7 @@ quasi aliquam eligendi, placeat qui corporis!`,
     languages: 'Fluent in English and Malayalam',
     groupSessions: false,
     offlineSessions: false,
+    address:'John Doe, 456 Elm Street, Suite 3, Los Angeles, CA 90001, Karnataka',
     description: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
 molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
 numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
@@ -554,7 +571,8 @@ quasi aliquam eligendi, placeat qui corporis!`,
         testimonial:
           'A truly wonderful experience. Issac Paul listens patiently and gives practical advice that I can apply to everyday life. Highly recommended for anyone seeking a supportive therapist.'
       }
-    ]
+    ],
+    metaTags:'Bengaluru'
   },{
     id: 10,
     slug: 'nutritionist-1',
@@ -565,6 +583,7 @@ quasi aliquam eligendi, placeat qui corporis!`,
     languages: 'Fluent in English and Malayalam',
     groupSessions: false,
     offlineSessions: false,
+    address:'John Doe, 456 Elm Street, Suite 3, Los Angeles, CA 90001, Karnataka',
     description: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
 molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
 numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
@@ -616,7 +635,8 @@ quasi aliquam eligendi, placeat qui corporis!`,
         testimonial:
           'A truly wonderful experience. Issac Paul listens patiently and gives practical advice that I can apply to everyday life. Highly recommended for anyone seeking a supportive therapist.'
       }
-    ]
+    ],
+    metaTags:'Bengaluru'
   },{
     id: 11,
     slug: 'nutritionist-2',
@@ -627,6 +647,7 @@ quasi aliquam eligendi, placeat qui corporis!`,
     languages: 'Fluent in English and Malayalam',
     groupSessions: false,
     offlineSessions: false,
+    address:'John Doe, 456 Elm Street, Suite 3, Los Angeles, CA 90001, Karnataka',
     description: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
 molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
 numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
@@ -678,7 +699,8 @@ quasi aliquam eligendi, placeat qui corporis!`,
         testimonial:
           'A truly wonderful experience. Issac Paul listens patiently and gives practical advice that I can apply to everyday life. Highly recommended for anyone seeking a supportive therapist.'
       }
-    ]
+    ],
+    metaTags:'Bengaluru'
   },{
     id: 12,
     slug: 'nutritionist-3',
@@ -689,6 +711,7 @@ quasi aliquam eligendi, placeat qui corporis!`,
     languages: 'Fluent in English and Malayalam',
     groupSessions: false,
     offlineSessions: false,
+    address:'John Doe, 456 Elm Street, Suite 3, Los Angeles, CA 90001, Karnataka',
     description: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
 molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
 numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
@@ -740,7 +763,8 @@ quasi aliquam eligendi, placeat qui corporis!`,
         testimonial:
           'A truly wonderful experience. Issac Paul listens patiently and gives practical advice that I can apply to everyday life. Highly recommended for anyone seeking a supportive therapist.'
       }
-    ]
+    ],
+    metaTags:'Bengaluru'
   },
 ]
 

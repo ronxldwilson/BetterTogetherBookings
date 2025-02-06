@@ -141,7 +141,9 @@ const sendEmail = async (
   slot,
   therapistName,
   therapistEmail,
-  orderId
+  orderId,
+  sessionMode,
+  address
 ) => {
   try {
     const response = await fetch('/api/send-email', {
@@ -153,7 +155,9 @@ const sendEmail = async (
         slot,
         therapistName,
         therapistEmail,
-        orderId
+        orderId,
+        sessionMode,
+        address
       })
     })
 
@@ -204,9 +208,12 @@ function RightSection ({ therapist }) {
   const [therapistID, setTherapistID] = useState('')
   const [message, setMessage] = useState('')
   const router = useRouter()
+  const [address, setAddress] = useState('');
+
   useEffect(() => {
     if (therapist?.id) {
       setTherapistID(therapist.id)
+      setAddress(therapist.address)
     }
   }, [therapist])
 
@@ -282,8 +289,10 @@ function RightSection ({ therapist }) {
                 selectedSlot.slice(11),
                 therapist.name,
                 therapist.email,
-                orderId
-              ) //to, date, slot, therapistName, therapistEmail, orderId
+                orderId,
+                sessionMode,
+                address
+              ) //to, date, slot, therapistName, therapistEmail, orderId, sessionMode, address
 
               const responseBody = {
                 paymentId: response.razorpay_payment_id,
@@ -334,7 +343,7 @@ function RightSection ({ therapist }) {
   }
 
   return (
-    <div className='lg:w-3/5 bg-gray-100 p-6 rounded-lg shadow-md'>
+    <div className='lg:w-3/5 bg-gray-100 my-4 p-6 rounded-lg shadow-md'>
       <h2 className='text-xl font-semibold mb-4'>Book Your Session</h2>
       <form className='space-y-4' onSubmit={handleSubmission}>
         {/* Session Mode */}
@@ -436,7 +445,7 @@ function RightSection ({ therapist }) {
             <input
               type='text'
               id='name'
-              className='w-full border-gray-300 rounded-lg p-2'
+              className='w-full border-gray-300 rounded-lg p-2 text-sm'
               placeholder='Name'
               value={name}
               onChange={e => setName(e.target.value)}
@@ -444,7 +453,7 @@ function RightSection ({ therapist }) {
             <input
               type='email'
               id='email'
-              className='w-full border-gray-300 rounded-lg p-2'
+              className='w-full border-gray-300 rounded-lg p-2 text-sm'
               placeholder='Email'
               value={email}
               onChange={e => setEmail(e.target.value)}
@@ -452,7 +461,7 @@ function RightSection ({ therapist }) {
             <input
               type='text'
               id='phone'
-              className='w-full border-gray-300 rounded-lg p-2'
+              className='w-full border-gray-300 rounded-lg p-2 text-sm'
               placeholder='Phone'
               value={phone}
               onChange={e => setPhone(e.target.value)}
@@ -544,7 +553,7 @@ function leftSection (therapist) {
               Location
             </h3>
             <p className='text-gray-600 mb-4'>
-              Detailed address will be shared over email
+              Detailed address will be shared over email for offline sessions
             </p>
 
             <div className='overflow-hidden rounded-lg shadow-md'>

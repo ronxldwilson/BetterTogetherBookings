@@ -18,8 +18,8 @@ export default function Home () {
     // Combine search logic for name, location, and other fields
     const matchesSearchQuery =
       profile.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      profile.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      profile.description.toLowerCase().includes(searchQuery.toLowerCase())
+      profile.metaTags.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      profile.description.toLowerCase().includes(searchQuery.toLowerCase()) 
 
     return matchesCategory && matchesSearchQuery
   })

@@ -2,8 +2,16 @@ import nodemailer from 'nodemailer'
 import { google } from 'googleapis'
 
 export async function POST (request) {
-  const { to, date, slot, therapistName, therapistEmail, orderId } =
-    await request.json()
+  const {
+    to,
+    date,
+    slot,
+    therapistName,
+    therapistEmail,
+    orderId,
+    sessionMode,
+    address
+  } = await request.json()
 
   const {
     GOOGLE_CLIENT_ID,
@@ -121,6 +129,8 @@ END:VCALENDAR
         pass: EMAIL_PASS
       }
     })
+    console.log("Session Mode:", sessionMode);
+    console.log("Address:", address);
 
     // Send the email to the user
     const userEmailContent = {
@@ -128,28 +138,29 @@ END:VCALENDAR
       to,
       subject: '[TESTING] Your Booking Confirmation with Calendar Invite',
       text: `Dear Customer,
-
-Thank you for booking your session with Better Together Wellness.
-
-Here are your session details:
-- Therapist: ${therapistName}
-- Date: ${date}
-- Time Slot: ${slot}
-- Booking ID: ${orderId}
-
-
-A calendar invite is attached to help you save the session in your calendar.
-
-Best regards,
-Better Together Wellness Team`,
+    
+    Thank you for booking your session with Better Together Wellness.
+    
+    Here are your session details:
+    - Therapist: ${therapistName}
+    - Date: ${date}
+    - Time Slot: ${slot}
+    - Booking ID: ${orderId}
+    ${sessionMode === 'offline' ? `- Address: ${address}` : ''}
+    
+    A calendar invite is attached to help you save the session in your calendar.
+    
+    Best regards,
+    Better Together Wellness Team`,
       html: `
         <p>Dear Customer,</p>
         <p>Thank you for booking your session with <strong>Better Together Wellness</strong>.</p>
         <p>
-          <strong>Therapist:</strong> ${therapistName}<br>
+          <strong>Professional Name:</strong> ${therapistName}<br>
           <strong>Date:</strong> ${date}<br>
           <strong>Time Slot:</strong> ${slot}<br>
           <strong>Booking ID:</strong> ${orderId}<br>
+          ${sessionMode === 'offline' ? `<strong>Address:</strong> ${address}<br>` : ''}
         </p>
         <p>A calendar invite is attached to help you save the session in your calendar.</p>
         <p>Best regards,<br>Better Together Wellness Team</p>
@@ -158,7 +169,8 @@ Better Together Wellness Team`,
         content: iCalEvent,
         method: 'REQUEST'
       }
-    }
+    };
+    
 
     // Send the email to the therapist
     const therapistEmailContent = {
@@ -219,9 +231,8 @@ Better Together Wellness Team`,
         </p>
 
         <p>Best regards,<br>Better Together Wellness Team</p>
-      `,
-    };
-    
+      `
+    }
 
     // Send both emails
     await transporter.sendMail(userEmailContent)
@@ -234,14 +245,14 @@ Better Together Wellness Team`,
       userEmailContent.subject,
       userEmailContent.text
     )
-    
+
     email_logs(
       therapistEmailContent.to,
       therapistEmailContent.from,
       therapistEmailContent.subject,
       therapistEmailContent.text
     )
-    
+
     email_logs(
       adminMailContent.to,
       adminMailContent.from,
