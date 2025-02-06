@@ -67,6 +67,8 @@ quasi aliquam eligendi, placeat qui corporis!`,
     category:"Therapy",
     experience: 'Therapist · 5+ Years of Experience',
     languages: 'Fluent in English and Malayalam',
+    groupSessions: true,
+    offlineSessions: false,
     description: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
 molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
 numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
@@ -127,6 +129,8 @@ quasi aliquam eligendi, placeat qui corporis!`,
     category:"Therapy",
     experience: 'Therapist · 5+ Years of Experience',
     languages: 'Fluent in English and Malayalam',
+    groupSessions: true,
+    offlineSessions: false,
     description: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
 molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
 numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
@@ -187,6 +191,8 @@ quasi aliquam eligendi, placeat qui corporis!`,
     category:"Fitness",
     experience: 'Therapist · 5+ Years of Experience',
     languages: 'Fluent in English and Malayalam',
+    groupSessions: true,
+    offlineSessions: false,
     description: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
 molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
 numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
@@ -247,6 +253,8 @@ quasi aliquam eligendi, placeat qui corporis!`,
     category:"Fitness",
     experience: 'Therapist · 5+ Years of Experience',
     languages: 'Fluent in English and Malayalam',
+    groupSessions: true,
+    offlineSessions: false,
     description: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
 molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
 numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
@@ -307,6 +315,8 @@ quasi aliquam eligendi, placeat qui corporis!`,
     category:"Fitness",
     experience: 'Therapist · 5+ Years of Experience',
     languages: 'Fluent in English and Malayalam',
+    groupSessions: false,
+    offlineSessions: false,
     description: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
 molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
 numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
@@ -367,6 +377,8 @@ quasi aliquam eligendi, placeat qui corporis!`,
     category:"Psychiatric Care",
     experience: 'Therapist · 5+ Years of Experience',
     languages: 'Fluent in English and Malayalam',
+    groupSessions: false,
+    offlineSessions: false,
     description: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
 molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
 numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
@@ -427,6 +439,8 @@ quasi aliquam eligendi, placeat qui corporis!`,
     category:"Psychiatric Care",
     experience: 'Therapist · 5+ Years of Experience',
     languages: 'Fluent in English and Malayalam',
+    groupSessions: false,
+    offlineSessions: false,
     description: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
 molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
 numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
@@ -487,6 +501,8 @@ quasi aliquam eligendi, placeat qui corporis!`,
     category:"Psychiatric Care",
     experience: 'Therapist · 5+ Years of Experience',
     languages: 'Fluent in English and Malayalam',
+    groupSessions: false,
+    offlineSessions: false,
     description: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
 molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
 numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
@@ -547,6 +563,8 @@ quasi aliquam eligendi, placeat qui corporis!`,
     category:"Nutrition",
     experience: 'Therapist · 5+ Years of Experience',
     languages: 'Fluent in English and Malayalam',
+    groupSessions: false,
+    offlineSessions: false,
     description: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
 molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
 numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
@@ -607,6 +625,8 @@ quasi aliquam eligendi, placeat qui corporis!`,
     category:"Nutrition",
     experience: 'Therapist · 5+ Years of Experience',
     languages: 'Fluent in English and Malayalam',
+    groupSessions: false,
+    offlineSessions: false,
     description: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
 molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
 numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
@@ -667,6 +687,8 @@ quasi aliquam eligendi, placeat qui corporis!`,
     category:"Nutrition",
     experience: 'Therapist · 5+ Years of Experience',
     languages: 'Fluent in English and Malayalam',
+    groupSessions: false,
+    offlineSessions: false,
     description: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
 molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
 numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium

@@ -85,7 +85,8 @@ export default function Home () {
                 individualPrice={profile.individualPrice}
                 couplesPrice={profile.couplesPrice}
                 profileImage={profile.profileImage}
-                location={profile.location} // Assuming location is part of the profile data
+                groupSessions={profile.groupSessions}
+                location={profile.location} 
               />
             ))}
           </div>

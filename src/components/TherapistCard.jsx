@@ -15,6 +15,7 @@ const TherapistCard = ({
   individualPrice,
   couplesPrice,
   profileImage,
+  groupSessions,
 }) => {
   const router = useRouter();
 
@@ -39,7 +40,7 @@ const TherapistCard = ({
           <h2 className="font-semibold text-xl text-gray-800 mr-2">{name}</h2>
           {verified && (
             <Image
-              src="/verified.png" // Make sure this image is inside the public folder
+              src="/verified.png"
               alt="Verified"
               width={24}
               height={24}
@@ -79,9 +80,12 @@ const TherapistCard = ({
           <p className="text-xs text-gray-600">
             <span className="font-medium">Individual:</span> ₹{individualPrice}
           </p>
-          <p className="text-xs text-gray-600">
-            <span className="font-medium">Couples:</span> ₹{couplesPrice}
-          </p>
+          {groupSessions && couplesPrice !== undefined && (
+            <p className="text-xs text-gray-600">
+              <span className="font-medium">Couples:</span> ₹{couplesPrice}
+            </p>
+          )}
+
         </div>
       </div>
     </div>

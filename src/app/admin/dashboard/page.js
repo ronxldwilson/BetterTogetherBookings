@@ -166,7 +166,7 @@ export default function Dashboard () {
             {/* Pass refreshKey as a key to force re-render */}
             <Calendar
               key={refreshKey} // Force re-render when refreshKey changes
-              id={professionalId}
+              id={1}
               name={professionalName}
               selectedSlot={selectedSlot}
               onChange={setSelectedSlot}

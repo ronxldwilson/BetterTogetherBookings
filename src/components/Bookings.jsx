@@ -124,7 +124,7 @@ export default function Bookings({ id }) {
                                         }}
                                     >
                                         <strong>Name:</strong> {booking.session_with?.name || "N/A"} <br />
-                                        <strong>Phone:</strong> {booking.session_with?.phone || "N/A"} <br />
+                                        {/* <strong>Phone:</strong> {booking.session_with?.phone || "N/A"} <br /> */}
                                         <strong>Email:</strong> {booking.session_with?.email || "N/A"}
                                     </td>
                                     {/* <td
