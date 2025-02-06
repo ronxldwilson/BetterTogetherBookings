@@ -54,7 +54,7 @@ const HeaderSection = () => {
           <Link href="https://www.thebettertogether.in/contact" className="hover:text-gray-400 py-4">
             Contact Us
           </Link>
-          <Link href="https://www.thebettertogether.in/join-community" className="hover:text-gray-400">
+          <Link href="https://www.thebettertogether.in/join-community" className="hover:text-gray-400 text-white">
             <button className="p-4 bg-custom-red">Join Community</button>
           </Link>
         </nav>
