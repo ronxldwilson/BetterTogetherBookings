@@ -78,7 +78,7 @@ const TherapistCard = ({
         </button>
         <div className="text-center md:text-right">
           <p className="text-xs text-gray-600">
-            <span className="font-medium">Individual:</span> ₹{individualPrice}
+            <span className="font-medium">Individual:</span> ₹{individualPrice} 
           </p>
           {groupSessions && couplesPrice !== undefined && (
             <p className="text-xs text-gray-600">

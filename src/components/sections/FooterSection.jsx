@@ -30,7 +30,7 @@ const FooterSection = () => {
             <ul className="space-y-2">
               <li className="text-sm"><Link href="/terms-&-conditions" className="hover:text-white">Terms & Conditions </Link></li>
               <li className="text-sm"><Link href="/privacy-policy" className="hover:text-white">Privacy Policy </Link></li>
-              <li className="text-sm"><Link href="/disclaimer" className="hover:text-white">Disclaimer </Link></li>
+              <li className="text-sm"><Link href="/refund-policy" className="hover:text-white">Refund Policy </Link></li>
             </ul>
           </div>
 

@@ -410,7 +410,7 @@ function RightSection ({ therapist }) {
                 htmlFor='sessionType-individual'
                 className='ml-2 text-sm font-medium text-gray-700'
               >
-                Individual - ₹{therapist.individualPrice}
+                Individual - ₹{therapist.individualPrice} for 50 mins
               </label>
             </div>
 
@@ -429,7 +429,7 @@ function RightSection ({ therapist }) {
                   htmlFor='sessionType-couples'
                   className='ml-2 text-sm font-medium text-gray-700'
                 >
-                  Couples - ₹{therapist.couplesPrice}
+                  Couples - ₹{therapist.couplesPrice} for 50 mins
                 </label>
               </div>
             )}
@@ -540,9 +540,9 @@ function leftSection (therapist) {
         </div>
         <div>
           <h3 className='text-lg font-bold'>Fees for {therapist.name}:</h3>
-          <p>Individual: ₹{therapist.individualPrice}</p>
+          <p>Individual: ₹{therapist.individualPrice} for 50 mins</p> 
           {therapist.groupSessions && (
-            <p>Group Sessions: ₹{therapist.groupPrice}</p>
+            <p>Group Sessions: ₹{therapist.groupPrice} for 50 mins</p>
           )}
         </div>
 
