@@ -537,22 +537,28 @@ function leftSection (therapist) {
           )}
         </div>
 
-        {/* Location */}
-        {therapist.offlineSessions &&
+        {/* Location Section */}
+        {therapist.offlineSessions && (
+          <div className='mt-8'>
+            <h3 className='text-xl font-semibold text-gray-900 mb-3'>
+              Location
+            </h3>
+            <p className='text-gray-600 mb-4'>
+              Detailed address will be shared over email
+            </p>
 
-        <div>
-          <h3>Location</h3>
-          <p>Detailed address will be shared over email</p>
-          <iframe
-            src={therapist.location}
-            width='600'
-            height='450'
-            allowFullScreen=''
-            loading='lazy'
-            referrerPolicy='no-referrer-when-downgrade'
-          ></iframe>
-        </div>
-        }
+            <div className='overflow-hidden rounded-lg shadow-md'>
+              <iframe
+                src={therapist.location}
+                className='w-full h-64 sm:h-80 md:h-96'
+                allowFullScreen
+                loading='lazy'
+                referrerPolicy='no-referrer-when-downgrade'
+                title='Therapist Location'
+              ></iframe>
+            </div>
+          </div>
+        )}
 
         {/* Rating and Testimonials Section */}
         <div className='space-y-4'>
