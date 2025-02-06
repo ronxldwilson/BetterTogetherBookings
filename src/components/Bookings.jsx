@@ -70,90 +70,51 @@ export default function Bookings({ id }) {
     }, [id]);
 
     return (
-        <div style={{ padding: "1rem", fontFamily: "Arial, sans-serif" }}>
-            <h1 style={{ marginBottom: "1rem" }}>Bookings</h1>
-            {loading ? (
-                <p>Loading...</p>
-            ) : bookings.length > 0 ? (
-                <table
-                    style={{
-                        width: "100%",
-                        borderCollapse: "collapse",
-                        border: "1px solid #ddd",
-                    }}
-                >
-                    <thead>
-                        <tr
-                            style={{
-                                backgroundColor: "#f2f2f2",
-                                textAlign: "left",
-                                borderBottom: "2px solid #ddd",
-                            }}
-                        >
-                            <th style={{ padding: "12px", border: "1px solid #ddd" }}>Date</th>
-                            <th style={{ padding: "12px", border: "1px solid #ddd" }}>Time</th>
-                            <th style={{ padding: "12px", border: "1px solid #ddd" }}>Details</th>
-                            {/* <th style={{ padding: "12px", border: "1px solid #ddd" }}>Action</th> */}
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {bookings
-                            .sort((a, b) => new Date(a.date) - new Date(b.date)) // Sorting bookings by date
-                            .map((booking) => (
-                                <tr key={booking.schedule_id}>
-                                    <td
-                                        style={{
-                                            padding: "12px",
-                                            border: "1px solid #ddd",
-                                        }}
-                                    >
-                                        {booking.date}
-                                    </td>
-                                    <td
-                                        style={{
-                                            padding: "12px",
-                                            border: "1px solid #ddd",
-                                        }}
-                                    >
-                                        {booking.slot}
-                                    </td>
-                                    <td
-                                        style={{
-                                            padding: "12px",
-                                            border: "1px solid #ddd",
-                                        }}
-                                    >
-                                        <strong>Name:</strong> {booking.session_with?.name || "N/A"} <br />
-                                        {/* <strong>Phone:</strong> {booking.session_with?.phone || "N/A"} <br /> */}
-                                        <strong>Email:</strong> {booking.session_with?.email || "N/A"}
-                                    </td>
-                                    {/* <td
-                                        style={{
-                                            padding: "12px",
-                                            border: "1px solid #ddd",
-                                        }}
-                                    >
-                                        <button
-                                            onClick={() => markAsDeleted(booking.schedule_id)}
-                                            style={{
-                                                backgroundColor: "red",
-                                                color: "white",
-                                                padding: "8px 12px",
-                                                border: "none",
-                                                borderRadius: "4px",
-                                                cursor: "pointer",
-                                            }}
-                                        >
-                                            Mark as Deleted
-                                        </button>
-                                    </td> */}
+        <>
+            <div className="container mx-auto px-4 py-8">
+                <h1 className="text-lg font-bold mb-6">Bookings</h1>
+                {loading ? (
+                    <div className="flex justify-center items-center h-64">
+                        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+                    </div>
+                ) : bookings.length > 0 ? (
+                    <div className="overflow-x-auto bg-white rounded-lg shadow">
+                        <table className="w-full table-auto">
+                            <thead className="bg-gray-50">
+                                <tr>
+                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Time</th>
+                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Details
+                                    </th>
                                 </tr>
-                            ))}
-                    </tbody>
-                </table>
-            ) : (
-                <p>No bookings found for this ID.</p>
-            )}
-        </div>
+                            </thead>
+                            <tbody className="divide-y divide-gray-200">
+                                {bookings
+                                    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+                                    .map((booking) => (
+                                        <tr key={booking.schedule_id} className="hover:bg-gray-50">
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{booking.date}</td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{booking.slot}</td>
+                                            <td className="px-6 py-4 text-sm text-gray-900">
+                                                <p>
+                                                    <span className="font-semibold">Name:</span> {booking.session_with?.name || "N/A"}
+                                                </p>
+                                                <p>
+                                                    <span className="font-semibold">Email:</span> {booking.session_with?.email || "N/A"}
+                                                </p>
+                                            </td>
+                                        </tr>
+                                    ))}
+                            </tbody>
+                        </table>
+                    </div>
+                ) : (
+                    <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 mt-4">
+                        <p className="text-yellow-700">No bookings found for this ID.</p>
+                    </div>
+                )}
+            </div>
+        </>
     );
 }

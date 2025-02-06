@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation'
 import Calendar from '@/components/Calendar'
 import Bookings from '@/components/Bookings'
 
-export default function Dashboard () {
+export default function Dashboard() {
   const [user, setUser] = useState(null)
   const [uid, setUID] = useState('')
   const [selectedSlot, setSelectedSlot] = useState('')
@@ -20,14 +20,14 @@ export default function Dashboard () {
   useEffect(() => {
     const fetchUser = async () => {
       const {
-        data: { user }
+        data: { user },
       } = await supabase.auth.getUser()
 
       if (!user) {
         router.push('/admin/login')
       } else {
         setUser(user)
-        setUID(user.id) 
+        setUID(user.id)
         await retrieveProfessionalId(user.email)
       }
     }
@@ -39,7 +39,7 @@ export default function Dashboard () {
     try {
       const { data, error } = await supabase
         .from('professional')
-        .select('professional_id','name')
+        .select('professional_id, name')
         .eq('professional_email', email)
         .single() // Expecting only one result
 
@@ -58,8 +58,8 @@ export default function Dashboard () {
 
   if (!user) {
     return (
-      <div className='min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-500 to-purple-600'>
-        <p className='text-white text-lg'>Loading...</p>
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-500 to-purple-600">
+        <p className="text-white text-lg">Loading...</p>
       </div>
     )
   }
@@ -69,15 +69,15 @@ export default function Dashboard () {
       const response = await fetch('/api/addSchedule', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           professional_id: professional_id,
           date: date,
           slot: slot,
           session_with: userId,
-          order_id: orderId
-        })
+          order_id: orderId,
+        }),
       })
 
       if (!response.ok) {
@@ -113,7 +113,7 @@ export default function Dashboard () {
 
       setMessage('Time slot blocked successfully!')
       setSelectedSlot('') // Clear the selected slot after successful blocking
-      setRefreshKey(prevKey => prevKey + 1) // Increment refresh key to re-render Calendar
+      setRefreshKey((prevKey) => prevKey + 1) // Increment refresh key to re-render Calendar
     } catch (error) {
       setMessage('Failed to block time slot. Please try again.')
       console.error(error)
@@ -123,19 +123,19 @@ export default function Dashboard () {
   }
 
   return (
-    <div className='min-h-screen bg-gradient-to-r from-blue-500 to-purple-600'>
-      <nav className='bg-white shadow-lg'>
-        <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
-          <div className='flex justify-between items-center h-16'>
-            <div className='text-xl font-bold text-gray-800'>Dashboard</div>
-            <div className='flex items-center space-x-4'>
-              <span className='text-gray-800'>Welcome, {user.email}</span>
+    <div className="min-h-screen bg-gradient-to-r from-blue-500 to-purple-600">
+      <nav className="bg-white shadow-lg">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            <div className="text-xl font-bold text-gray-800">Dashboard</div>
+            <div className="flex items-center space-x-4">
+              {/* <span className="text-gray-800">Welcome, {user.email}</span> */}
               <button
                 onClick={async () => {
                   await supabase.auth.signOut()
                   router.push('/admin/login')
                 }}
-                className='bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2'
+                className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
               >
                 Logout
               </button>
@@ -144,16 +144,16 @@ export default function Dashboard () {
         </div>
       </nav>
 
-      <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8'>
-        <div className='bg-white p-8 rounded-lg shadow-lg'>
-          <h1 className='text-3xl font-bold text-gray-800 mb-6'>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="bg-white p-6 md:p-8 rounded-lg shadow-lg">
+          <h1 className="text-lg md:text-3xl font-bold text-gray-800 mb-6">
             Dashboard Overview
           </h1>
 
-          <h2>My Schedule</h2>
+          <h2 className="text-md font-semibold text-gray-700 mb-4">My Schedule</h2>
           <Bookings id={professionalId} />
-          <div>
-            {/* Pass refreshKey as a key to force re-render */}
+
+          <div className="mt-6">
             <Calendar
               key={refreshKey} // Force re-render when refreshKey changes
               id={professionalId}
@@ -169,7 +169,7 @@ export default function Dashboard () {
             />
           </div>
 
-          <div className='mt-6'>
+          <div className="mt-6">
             <button
               onClick={handleBlocking}
               disabled={!selectedSlot || isLoading} // Disable if no slot is selected or loading

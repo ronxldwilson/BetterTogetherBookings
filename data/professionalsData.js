@@ -8,7 +8,7 @@ const profileData = [
     experience: 'Therapist · 5+ Years of Experience',
     languages: 'Fluent in English and Malayalam',
     groupSessions: false,
-    offlineSessions: false,
+    offlineSessions: true,
     address:'John Doe, 456 Elm Street, Suite 3, Los Angeles, CA 90001, Karnataka',
     description: `Hi, this is Issac Paul. I’m here to guide you through life’s challenges with therapy that fosters healing, self-discovery, and personal growth, helping you build a stronger, healthier mindset.
 <br><br>

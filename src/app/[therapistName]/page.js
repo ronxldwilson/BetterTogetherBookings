@@ -358,7 +358,7 @@ function RightSection ({ therapist }) {
                 Online
               </label>
             </div>
-            {therapist.offlineSession && (
+            {therapist.offlineSessions && (
               <div className='flex items-center'>
                 <input
                   type='radio'
@@ -538,6 +538,8 @@ function leftSection (therapist) {
         </div>
 
         {/* Location */}
+        {therapist.offlineSessions &&
+
         <div>
           <h3>Location</h3>
           <p>Detailed address will be shared over email</p>
@@ -550,6 +552,7 @@ function leftSection (therapist) {
             referrerPolicy='no-referrer-when-downgrade'
           ></iframe>
         </div>
+        }
 
         {/* Rating and Testimonials Section */}
         <div className='space-y-4'>
