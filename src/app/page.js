@@ -37,14 +37,14 @@ export default function Home () {
           <h1 className='text-md md:text-2xl font-bold text-gray-800 mb-4 text-center'>
             Find the right professional for your needs with better together
           </h1>
-          <h2 className='text-sm md:text-md font-medium text-gray-600 text-center mb-8'>
+          <h2 className='text-sm md:text-md font-medium text-gray-600 text-center mb-4'>
             Connect with certified therapists, fitness coaches, psychiatric care
             specialists, and nutritionists. Book personalized sessions tailored
             to your goals and start your journey today.
           </h2>
 
           {/* Pill Filters */}
-          <div className='flex flex-wrap gap-2 justify-center mb-8'>
+          {/* <div className='flex flex-wrap gap-2 justify-center mb-4'>
             {['Therapy', 'Fitness', 'Psychiatric Care', 'Nutrition'].map(
               category => (
                 <button
@@ -60,10 +60,10 @@ export default function Home () {
                 </button>
               )
             )}
-          </div>
+          </div> */}
 
           {/* Combined Search Input */}
-          <div className='flex justify-center space-x-2 mb-8'>
+          <div className='flex justify-center space-x-2 mb-4'>
             <input
               type='text'
               placeholder='Search by name, location, or other details...'
@@ -80,7 +80,7 @@ export default function Home () {
               <option value='English'>English</option>
               <option value='Malayalam'>Malayalam</option>
               <option value='Hindi'>Hinde</option>
-              <option value='Kanada'>Kanada</option>
+              <option value='Kannada '>Kannada </option>
             </select>
           </div>
 
