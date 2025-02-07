@@ -38,7 +38,7 @@ const FooterSection = () => {
           <div className="w-full md:w-1/4 mb-8 md:mb-0">
             <h3 className="text-sm font-semibold text-white mb-4">Better Together Wellness Pvt Ltd</h3>
             <ul className="space-y-2">
-              <li className="text-sm">MG Road, 62/63 The Pavilion, Church Street, Bengaluru, KA 560001</li>
+              <li className="text-sm">WeWork MG Road, 62/63 The Pavilion, Church Street, Bengaluru, Karnataka 560001</li>
               <li className="text-sm">
                 {/* <OrgSocialLinks/> */}
 
