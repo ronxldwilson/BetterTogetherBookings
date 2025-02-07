@@ -23,7 +23,7 @@ const profileData = [
       'MSc Counselling Psychology',
       'BA in Psychology, Sociology and Literature'
     ],
-    individualPrice: 2000,
+    individualPrice: 1,
     couplesPrice: 3000,
     profileImage: '/images/therapist/Issac.jpg',
     rating: 5,

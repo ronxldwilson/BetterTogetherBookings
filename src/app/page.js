@@ -79,7 +79,7 @@ export default function Home () {
               <option value=''>Language</option>
               <option value='English'>English</option>
               <option value='Malayalam'>Malayalam</option>
-              <option value='Hindi'>Hinde</option>
+              <option value='Hindi'>Hindi</option>
               <option value='Kannada '>Kannada </option>
             </select>
           </div>
