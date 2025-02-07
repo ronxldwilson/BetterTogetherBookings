@@ -19,7 +19,9 @@ export default function Home () {
     const matchesSearchQuery =
       profile.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       profile.metaTags.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      profile.description.toLowerCase().includes(searchQuery.toLowerCase()) 
+      profile.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      profile.languages.toLowerCase().includes(searchQuery.toLowerCase()) 
+
 
     return matchesCategory && matchesSearchQuery
   })
@@ -41,17 +43,6 @@ export default function Home () {
             to your goals and start your journey today.
           </h2>
 
-          {/* Combined Search Input */}
-          <div className='flex justify-center mb-8'>
-            <input
-              type='text'
-              placeholder='Search by name, location, or other details...'
-              value={searchQuery}
-              onChange={e => setSearchQuery(e.target.value)}
-              className='px-4 py-2 rounded-full text-sm font-medium bg-gray-200 text-gray-700 hover:bg-gray-300 w-full max-w-md'
-            />
-          </div>
-
           {/* Pill Filters */}
           <div className='flex flex-wrap gap-2 justify-center mb-8'>
             {['Therapy', 'Fitness', 'Psychiatric Care', 'Nutrition'].map(
@@ -71,6 +62,28 @@ export default function Home () {
             )}
           </div>
 
+          {/* Combined Search Input */}
+          <div className='flex justify-center space-x-2 mb-8'>
+            <input
+              type='text'
+              placeholder='Search by name, location, or other details...'
+              value={searchQuery}
+              onChange={e => setSearchQuery(e.target.value)}
+              className='px-4 py-2 rounded-full text-sm font-medium bg-gray-200 text-gray-700 hover:bg-gray-300 w-full max-w-md'
+            />
+
+            <select
+              onChange={e => setSearchQuery(e.target.value)}
+              className='px-4 py-2 rounded-full text-sm font-medium bg-gray-200 text-gray-700 hover:bg-gray-300'
+            >
+              <option value=''>Language</option>
+              <option value='English'>English</option>
+              <option value='Malayalam'>Malayalam</option>
+              <option value='Hindi'>Hinde</option>
+              <option value='Kanada'>Kanada</option>
+            </select>
+          </div>
+
           {/* Therapist Cards in a Single Column */}
           <div className='flex flex-col gap-6'>
             {filteredProfiles.map(profile => (
@@ -86,7 +99,7 @@ export default function Home () {
                 couplesPrice={profile.couplesPrice}
                 profileImage={profile.profileImage}
                 groupSessions={profile.groupSessions}
-                location={profile.location} 
+                location={profile.location}
               />
             ))}
           </div>

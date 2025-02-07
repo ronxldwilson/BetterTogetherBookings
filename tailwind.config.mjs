@@ -12,7 +12,7 @@ export default {
         foreground: "var(--foreground)",
         'customPink': "#CE2D4F",
         'custom-red': '#CE2D4F',
-        'customDarkPink': "#CE2D9F",
+        'customDarkPink': "#E47A8B",
       },
     },
   },

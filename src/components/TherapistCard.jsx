@@ -72,7 +72,7 @@ const TherapistCard = ({
       <div className="flex flex-col items-center md:items-end space-y-3">
         <button
           onClick={handleBooking}
-          className="bg-customPink text-white hover:bg-customDarkPink px-6 py-2 rounded-lg text-sm font-semibold transition-colors duration-300"
+          className="bg-customPink text-white px-6 py-2 rounded-lg text-xs font-semibold transition-colors duration-300"
         >
           Book Session
         </button>
