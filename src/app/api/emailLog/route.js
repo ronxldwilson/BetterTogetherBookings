@@ -17,7 +17,6 @@ export async function POST(req) {
       )
     }
 
-    
     const { data, error } = await supabase
       .from('email_logs')
       .insert([{ to, from , subject, content }])

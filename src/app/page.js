@@ -44,7 +44,7 @@ export default function Home () {
           </h2>
 
           {/* Pill Filters */}
-          {/* <div className='flex flex-wrap gap-2 justify-center mb-4'>
+          <div className='flex flex-wrap gap-2 justify-center mb-4'>
             {['Therapy', 'Fitness', 'Psychiatric Care', 'Nutrition'].map(
               category => (
                 <button
@@ -60,7 +60,7 @@ export default function Home () {
                 </button>
               )
             )}
-          </div> */}
+          </div>
 
           {/* Combined Search Input */}
           <div className='flex justify-center space-x-2 mb-4'>
